@@ -15,16 +15,14 @@ class TDouble: XCTestCase {
 
         self.game.setUp(deck: [
             // Dealer
-            Card(Rank.c2), Card(Rank.c2),
+            Card(Rank.Queen), Card(Rank.Queen),
 
             //Hand
             Card(Rank.c10), Card(Rank.c3),
 
             Card(Rank.c7),
-            Card(Rank.c5),
+            Card(Rank.c5)
 
-            Card(Rank.c2),
-            Card(Rank.c2)
         ])
 
         self.game.bet(index: 1, stake: 10)

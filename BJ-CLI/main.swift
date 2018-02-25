@@ -23,11 +23,14 @@ func bet(handIndex: Int) -> Void {
     game.bet(index: handIndex, stake: 100);
 }
 func userAction() -> Void {
+
     dumpResults()
-    
-    guard let actions = game.model.activeHand?.getActions() else {
-        return;
+    guard game.live else {
+        return
     }
+
+    let actions = game.getActions()
+
     print("------------------------")
     usleep(400000)
     
@@ -49,16 +52,17 @@ func userAction() -> Void {
         return userAction()
     }
 
-    let action = actions.enumerated()
-
-//
-//    switch action {
-//    case BJAction.Double: return double()
-//    case BJAction.Hit: return hit()
-//    case BJAction.Stand: return stand()
-//    case BJAction.Split: return split()
-//    default: return userAction()
-//    }
+    for (i, a) in actions.enumerated() {
+        if i == n {
+            switch a {
+            case BJAction.Double: return double()
+            case BJAction.Hit: return hit()
+            case BJAction.Stand: return stand()
+            case BJAction.Split: return split()
+            default: return userAction()
+            }
+        }
+    }
 }
 func double() -> Void {
     print("-> Double")
@@ -92,7 +96,7 @@ func deal() {
 func dumpResults() {
     print("------------------------")
     
-    guard var userHand = game.model.activeHand else {
+    guard var userHand = game.model.activeHand as BJHand! else {
         return
     }
     print("hand: \(userHand.id)")
@@ -102,7 +106,7 @@ func dumpResults() {
     print("You:");
     printResults(hand: &userHand)
 }
-func printResults(hand: inout BJUserHand) {
+func printResults(hand: inout BJHand) {
     let scoreString = {() -> String in
         let score: (hard: Int, soft: Int?) = hand.getScore()
         guard let softScore = score.soft else {
@@ -111,14 +115,17 @@ func printResults(hand: inout BJUserHand) {
         return "(\(score.hard)/\(softScore))"
     }()
     
-    print("\(hand.cards) \(scoreString)");
+    print("\(scoreString) \(hand.cards)");
+}
+func showDealerCards() {
+
 }
 func gameCycle() {
     var i = 0;
     repeat {
         bet(handIndex: i)
         i += 1
-    } while i < 5
+    } while i < 1
     
     deal();
     
@@ -126,6 +133,7 @@ func gameCycle() {
     print()
     print("GAME END")
     print("--------")
+    game.model.clear()
     gameCycle();
 }
 
@@ -136,8 +144,24 @@ class GameInterface: GameDelegate {
     }
     
     func roundEnded() {
+        print()
+        print()
         print("Round ended")
         print("-------------")
+
+        print("Dealer")
+        var dealer = game.model.dealer as BJHand
+        printResults(hand: &dealer)
+
+        for hand in game.model.hands {
+            guard var hnd = hand else {
+                continue
+            }
+            if hnd.playing {
+                var simpleHand = hnd as BJHand
+                printResults(hand: &simpleHand)
+            }
+        }
     }
     
     func didDealCard(_ card: Card, _ hand: inout BJHand) {
@@ -145,8 +169,9 @@ class GameInterface: GameDelegate {
     }
     
     func didHandDone(_ hand: inout BJUserHand) {
+        var simpleHand = hand as BJHand
         print("Hand \(hand.id) is done with:")
-        printResults(hand: &hand)
+        printResults(hand: &simpleHand)
     }
 }
 

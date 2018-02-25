@@ -16,7 +16,7 @@ protocol BJGame {
     var live: Bool {get}
 
     func bet(index: Int, stake: Double)
-    func pullCard() -> Card?
+    func pullCard() -> Card
 
     func deal()
     func double()
@@ -24,6 +24,8 @@ protocol BJGame {
     func insurance()
     func hit()
     func stand()
+
+    func getActions() -> Set<BJAction>
 
     static func getCardScore(card: Card, soft: Bool) -> Int
 }
@@ -53,6 +55,7 @@ protocol BJHand {
 protocol BJUserHand: BJHand {
     var stake: Double {get set}
     var playing: Bool {get set}
+    var isDone: Bool {get set}
 
     func getActions() -> Set<BJAction>
 }

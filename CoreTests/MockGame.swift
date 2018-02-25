@@ -7,7 +7,24 @@ import Foundation
 class MockGame: Game {
 
     func setUp(deck: [Card]) -> Void {
-        self.model.deck = deck
+        self.model.deck = deck.reversed()
+    }
+    internal override func dealCards() {
+        for _ in 1...2 {
+            var dealer = self.model.dealer as BJHand
+            self.dealCardTo(hand: &dealer)
+        }
+
+        for var h in self.model.hands {
+            guard var hand = h else {
+                continue
+            }
+            hand.isDone = false
+            hand.playing = true
+            for _ in 1...2 {
+                self.dealCardToUser(hand: &hand)
+            }
+        }
     }
 
     override func deal() {

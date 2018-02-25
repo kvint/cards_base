@@ -1,5 +1,7 @@
 import Foundation
-
+enum GameError: Error {
+    case deckEmpty
+}
 class Game: BJGame {
     var delegate: GameDelegate? = nil
 
@@ -15,26 +17,27 @@ class Game: BJGame {
     }
 
     internal func endRound() {
+        self.live = false
         self.model.setActiveHand(index: nil)
 
-        for var hand in self.model.hands {
-            hand?.playing = false
-            hand?.cards = []
+        var dealer = self.model.dealer as BJHand
+
+        while (self.model.dealer as! Hand).getFinalScore() < 17 {
+            self.dealCardTo(hand: &dealer)
         }
+
         self.delegate?.roundEnded()
     }
 
-    private func dealCardToUser(hand: inout BJUserHand) {
+    internal func dealCardToUser(hand: inout BJUserHand) {
         guard var uhnd = hand as BJHand? else {
             return
         }
         self.dealCardTo(hand: &uhnd)
     }
 
-    private func dealCardTo(hand: inout BJHand) {
-        guard let card = self.pullCard() else {
-            return
-        }
+    internal func dealCardTo(hand: inout BJHand) {
+        let card = self.pullCard()
         hand.cards.append(card)
         self.delegate?.didDealCard(card, &hand)
     }
@@ -44,9 +47,10 @@ class Game: BJGame {
             return self.endRound()
         }
         if hand.getScore().hard >= BlackJackConstants.MAX_SCORE {
-            hand.playing = false
+            hand.isDone = true
+            hand.playing = false // got bust
         }
-        if !hand.playing {
+        if hand.isDone {
             self.delegate?.didHandDone(&hand)
 
             guard let nextHandIndex = self.model.getNextHandIndex() else {
@@ -70,8 +74,11 @@ class Game: BJGame {
         hand.stake = stake
     }
 
-    func pullCard() -> Card? {
-        return self.model.deck.popLast()
+    func pullCard() -> Card {
+        guard let card = self.model.deck.popLast() else {
+            fatalError("Cards deck is empty")
+        }
+        return card
     }
 
     func deal() {
@@ -87,13 +94,13 @@ class Game: BJGame {
         var dealer = self.model.dealer as BJHand
         for _ in 1...2 {
             self.dealCardTo(hand: &dealer)
-            for var (_, hand) in self.model.hands.enumerated() {
-                guard hand != nil else {
+            for var h in self.model.hands {
+                guard var hand = h else {
                     continue
                 }
-
-                hand!.playing = true
-                self.dealCardToUser(hand: &hand!)
+                hand.isDone = false
+                hand.playing = true
+                self.dealCardToUser(hand: &hand)
             }
         }
     }
@@ -104,7 +111,7 @@ class Game: BJGame {
         }
         hand.stake += hand.stake
         self.dealCardToUser(hand: &hand)
-        hand.playing = false
+        hand.isDone = true
         self.nextStep()
     }
 
@@ -117,6 +124,7 @@ class Game: BJGame {
     }
 
     func hit() {
+        print("hit")
         guard var hand = self.model.activeHand else {
             return;
         }
@@ -128,10 +136,15 @@ class Game: BJGame {
         guard var hand = self.model.activeHand else {
             return;
         }
-        hand.playing = false;
+        hand.isDone = true;
         self.nextStep()
     }
-
+    func getActions() -> Set<BJAction> {
+        guard let actions = self.model.activeHand?.getActions() else {
+            return []
+        }
+        return actions
+    }
     static func getCardScore(card: Card, soft: Bool = false) -> Int {
         switch (card.rank) {
         case Rank.c2: return 2
@@ -199,8 +212,11 @@ class GameModel: BJModel {
             return self.hands.index(where: { $0 != nil })
         }
 
-        for i in (index + 1)..<self.hands.count {
-            if self.hands[i] != nil {
+        for i in index..<self.hands.count {
+            guard let hand: BJUserHand = self.hands[i] else {
+                continue
+            }
+            if !hand.isDone && hand.playing {
                 return i
             }
         }
@@ -239,6 +255,7 @@ class Hand: BJUserHand, Equatable {
 
     private static var IDS: Int = 0
 
+    var isDone: Bool = false
     var stake: Double = 0
     var cards: [Card] = []
     var playing: Bool = false

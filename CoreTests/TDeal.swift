@@ -50,6 +50,6 @@ class TDeal: XCTestCase {
     }
     func testActiveHand() {
         XCTAssertNotNil(self.game.model.activeHand)
-        XCTAssert(self.game.model.activeHand!.id == self.game.model.getHand(at: 1)!.id)
+        XCTAssertEqual(self.game.model.activeHandIndex, 0)
     }
 }

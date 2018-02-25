@@ -15,16 +15,10 @@ class THitGotBust: XCTestCase {
 
         self.game.setUp(deck: [
             // Dealer
-            Card(Rank.c2), Card(Rank.c2),
+            Card(Rank.c10), Card(Rank.c10),
 
             //Hand
-            Card(Rank.c10), Card(Rank.c3),
-
-            Card(Rank.c7), //hit 1
-            Card(Rank.c5), //hit 2
-
-            Card(Rank.c2),
-            Card(Rank.c2)
+            Card(Rank.c10), Card(Rank.c3), Card(Rank.c7), Card(Rank.c5)
         ])
 
         self.game.bet(index: 1, stake: 10)
@@ -33,10 +27,9 @@ class THitGotBust: XCTestCase {
     }
 
     func testHit() {
-
         self.game.hit()
         self.game.hit()
 
-        XCTAssertNil(self.game.model.activeHand)
+        XCTAssertFalse(self.game.live, "Game round should be ended here")
     }
 }
