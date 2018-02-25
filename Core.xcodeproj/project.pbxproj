@@ -7,9 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8AC10C1A62F1C472B8841DC /* TStand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC15719D70698A3AA9B0EE /* TStand.swift */; };
+		D8AC13282B38DE9A99947A10 /* MockGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10746DE5E8B61D523E33 /* MockGame.swift */; };
+		D8AC133CBB3612C9BCD52504 /* THit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC13A375F2BB1AE5AB7715 /* THit.swift */; };
+		D8AC15477BE79E8E95374DE5 /* TDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */; };
+		D8AC15B92EC1783C307BF902 /* TActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1A48D7B56D26C31DDE81 /* TActions.swift */; };
+		D8AC1852D7C965989CF0F2B0 /* MockGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10746DE5E8B61D523E33 /* MockGame.swift */; };
+		D8AC1B4511EAC6A7920CDE41 /* TDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1CB75827D92489A7EE73 /* TDouble.swift */; };
+		D8AC1ECB676F73129614BC7A /* THitGotBust.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */; };
 		EA79E3742041D0AE00BA6E64 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA79E36A2041D0AE00BA6E64 /* Core.framework */; };
-		EA79E3792041D0AE00BA6E64 /* CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3782041D0AE00BA6E64 /* CoreTests.swift */; };
 		EA79E37B2041D0AE00BA6E64 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EA79E36D2041D0AE00BA6E64 /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA79E3892041D10700BA6E64 /* BlackJackCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3842041D10600BA6E64 /* BlackJackCore.swift */; };
+		EA79E38A2041D10700BA6E64 /* BlackJackCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3842041D10600BA6E64 /* BlackJackCore.swift */; };
+		EA79E38B2041D10700BA6E64 /* BJProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3852041D10600BA6E64 /* BJProtocols.swift */; };
+		EA79E38C2041D10700BA6E64 /* BJProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3852041D10600BA6E64 /* BJProtocols.swift */; };
+		EA79E38D2041D10700BA6E64 /* BlackJackConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3862041D10600BA6E64 /* BlackJackConstants.swift */; };
+		EA79E38E2041D10700BA6E64 /* BlackJackConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3862041D10600BA6E64 /* BlackJackConstants.swift */; };
+		EA79E38F2041D10700BA6E64 /* CardsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3872041D10600BA6E64 /* CardsCore.swift */; };
+		EA79E3902041D10700BA6E64 /* CardsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3872041D10600BA6E64 /* CardsCore.swift */; };
+		EA79E3912041D10700BA6E64 /* FisherShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3882041D10700BA6E64 /* FisherShuffleExtension.swift */; };
+		EA79E3922041D10700BA6E64 /* FisherShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3882041D10700BA6E64 /* FisherShuffleExtension.swift */; };
+		EA79E3972041D14400BA6E64 /* TModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3932041D14400BA6E64 /* TModel.swift */; };
+		EA79E3992041D14400BA6E64 /* THand.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3942041D14400BA6E64 /* THand.swift */; };
+		EA79E39B2041D14400BA6E64 /* TCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3952041D14400BA6E64 /* TCards.swift */; };
+		EA79E3A32041D24800BA6E64 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3A22041D24800BA6E64 /* main.swift */; };
+		EA79E3AB2041D2E600BA6E64 /* BJProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3852041D10600BA6E64 /* BJProtocols.swift */; };
+		EA79E3AC2041D2E600BA6E64 /* BlackJackConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3862041D10600BA6E64 /* BlackJackConstants.swift */; };
+		EA79E3AD2041D2E600BA6E64 /* BlackJackCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3842041D10600BA6E64 /* BlackJackCore.swift */; };
+		EA79E3AE2041D2E600BA6E64 /* CardsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3872041D10600BA6E64 /* CardsCore.swift */; };
+		EA79E3AF2041D2E600BA6E64 /* FisherShuffleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA79E3882041D10700BA6E64 /* FisherShuffleExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,13 +48,41 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EA79E39E2041D24800BA6E64 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		D8AC10746DE5E8B61D523E33 /* MockGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGame.swift; sourceTree = "<group>"; };
+		D8AC13A375F2BB1AE5AB7715 /* THit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THit.swift; sourceTree = "<group>"; };
+		D8AC15719D70698A3AA9B0EE /* TStand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStand.swift; sourceTree = "<group>"; };
+		D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THitGotBust.swift; sourceTree = "<group>"; };
+		D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDeal.swift; sourceTree = "<group>"; };
+		D8AC1A48D7B56D26C31DDE81 /* TActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TActions.swift; sourceTree = "<group>"; };
+		D8AC1CB75827D92489A7EE73 /* TDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDouble.swift; sourceTree = "<group>"; };
 		EA79E36A2041D0AE00BA6E64 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA79E36D2041D0AE00BA6E64 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		EA79E36E2041D0AE00BA6E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA79E3732041D0AE00BA6E64 /* CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA79E3782041D0AE00BA6E64 /* CoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTests.swift; sourceTree = "<group>"; };
 		EA79E37A2041D0AE00BA6E64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA79E3842041D10600BA6E64 /* BlackJackCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackJackCore.swift; sourceTree = "<group>"; };
+		EA79E3852041D10600BA6E64 /* BJProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BJProtocols.swift; sourceTree = "<group>"; };
+		EA79E3862041D10600BA6E64 /* BlackJackConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackJackConstants.swift; sourceTree = "<group>"; };
+		EA79E3872041D10600BA6E64 /* CardsCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsCore.swift; sourceTree = "<group>"; };
+		EA79E3882041D10700BA6E64 /* FisherShuffleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FisherShuffleExtension.swift; sourceTree = "<group>"; };
+		EA79E3932041D14400BA6E64 /* TModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TModel.swift; sourceTree = "<group>"; };
+		EA79E3942041D14400BA6E64 /* THand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THand.swift; sourceTree = "<group>"; };
+		EA79E3952041D14400BA6E64 /* TCards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCards.swift; sourceTree = "<group>"; };
+		EA79E3A02041D24800BA6E64 /* BJ-CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "BJ-CLI"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA79E3A22041D24800BA6E64 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,15 +101,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA79E39D2041D24800BA6E64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D8AC1660A807A1516EB09A90 /* stand */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC15719D70698A3AA9B0EE /* TStand.swift */,
+			);
+			path = stand;
+			sourceTree = "<group>";
+		};
+		D8AC18A377D463684092E525 /* hit */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC13A375F2BB1AE5AB7715 /* THit.swift */,
+				D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */,
+			);
+			path = hit;
+			sourceTree = "<group>";
+		};
+		D8AC1D80F4838D1740BAA077 /* double */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC1CB75827D92489A7EE73 /* TDouble.swift */,
+			);
+			path = double;
+			sourceTree = "<group>";
+		};
+		D8AC1EAA64D132CA255F170F /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC1A48D7B56D26C31DDE81 /* TActions.swift */,
+				D8AC18A377D463684092E525 /* hit */,
+				D8AC1D80F4838D1740BAA077 /* double */,
+				D8AC1660A807A1516EB09A90 /* stand */,
+			);
+			path = actions;
+			sourceTree = "<group>";
+		};
 		EA79E3602041D0AE00BA6E64 = {
 			isa = PBXGroup;
 			children = (
 				EA79E36C2041D0AE00BA6E64 /* Core */,
 				EA79E3772041D0AE00BA6E64 /* CoreTests */,
+				EA79E3A12041D24800BA6E64 /* BJ-CLI */,
 				EA79E36B2041D0AE00BA6E64 /* Products */,
+				EA79E3A92041D2C100BA6E64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +163,7 @@
 			children = (
 				EA79E36A2041D0AE00BA6E64 /* Core.framework */,
 				EA79E3732041D0AE00BA6E64 /* CoreTests.xctest */,
+				EA79E3A02041D24800BA6E64 /* BJ-CLI */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +172,11 @@
 			isa = PBXGroup;
 			children = (
 				EA79E36D2041D0AE00BA6E64 /* Core.h */,
+				EA79E3852041D10600BA6E64 /* BJProtocols.swift */,
+				EA79E3862041D10600BA6E64 /* BlackJackConstants.swift */,
+				EA79E3842041D10600BA6E64 /* BlackJackCore.swift */,
+				EA79E3872041D10600BA6E64 /* CardsCore.swift */,
+				EA79E3882041D10700BA6E64 /* FisherShuffleExtension.swift */,
 				EA79E36E2041D0AE00BA6E64 /* Info.plist */,
 			);
 			path = Core;
@@ -80,10 +185,30 @@
 		EA79E3772041D0AE00BA6E64 /* CoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				EA79E3782041D0AE00BA6E64 /* CoreTests.swift */,
+				EA79E3952041D14400BA6E64 /* TCards.swift */,
+				EA79E3942041D14400BA6E64 /* THand.swift */,
+				EA79E3932041D14400BA6E64 /* TModel.swift */,
 				EA79E37A2041D0AE00BA6E64 /* Info.plist */,
+				D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */,
+				D8AC10746DE5E8B61D523E33 /* MockGame.swift */,
+				D8AC1EAA64D132CA255F170F /* actions */,
 			);
 			path = CoreTests;
+			sourceTree = "<group>";
+		};
+		EA79E3A12041D24800BA6E64 /* BJ-CLI */ = {
+			isa = PBXGroup;
+			children = (
+				EA79E3A22041D24800BA6E64 /* main.swift */,
+			);
+			path = "BJ-CLI";
+			sourceTree = "<group>";
+		};
+		EA79E3A92041D2C100BA6E64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +261,23 @@
 			productReference = EA79E3732041D0AE00BA6E64 /* CoreTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EA79E39F2041D24800BA6E64 /* BJ-CLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA79E3A42041D24800BA6E64 /* Build configuration list for PBXNativeTarget "BJ-CLI" */;
+			buildPhases = (
+				EA79E39C2041D24800BA6E64 /* Sources */,
+				EA79E39D2041D24800BA6E64 /* Frameworks */,
+				EA79E39E2041D24800BA6E64 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BJ-CLI";
+			productName = "BJ-CLI";
+			productReference = EA79E3A02041D24800BA6E64 /* BJ-CLI */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -148,9 +290,14 @@
 				TargetAttributes = {
 					EA79E3692041D0AE00BA6E64 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					EA79E3722041D0AE00BA6E64 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					EA79E39F2041D24800BA6E64 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
@@ -169,6 +316,7 @@
 			projectRoot = "";
 			targets = (
 				EA79E3692041D0AE00BA6E64 /* Core */,
+				EA79E39F2041D24800BA6E64 /* BJ-CLI */,
 				EA79E3722041D0AE00BA6E64 /* CoreTests */,
 			);
 		};
@@ -196,6 +344,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA79E3912041D10700BA6E64 /* FisherShuffleExtension.swift in Sources */,
+				EA79E38F2041D10700BA6E64 /* CardsCore.swift in Sources */,
+				EA79E3892041D10700BA6E64 /* BlackJackCore.swift in Sources */,
+				EA79E38B2041D10700BA6E64 /* BJProtocols.swift in Sources */,
+				EA79E38D2041D10700BA6E64 /* BlackJackConstants.swift in Sources */,
+				D8AC13282B38DE9A99947A10 /* MockGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +357,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA79E3792041D0AE00BA6E64 /* CoreTests.swift in Sources */,
+				EA79E3972041D14400BA6E64 /* TModel.swift in Sources */,
+				EA79E39B2041D14400BA6E64 /* TCards.swift in Sources */,
+				EA79E38A2041D10700BA6E64 /* BlackJackCore.swift in Sources */,
+				EA79E3902041D10700BA6E64 /* CardsCore.swift in Sources */,
+				EA79E38E2041D10700BA6E64 /* BlackJackConstants.swift in Sources */,
+				EA79E3992041D14400BA6E64 /* THand.swift in Sources */,
+				EA79E3922041D10700BA6E64 /* FisherShuffleExtension.swift in Sources */,
+				EA79E38C2041D10700BA6E64 /* BJProtocols.swift in Sources */,
+				D8AC15477BE79E8E95374DE5 /* TDeal.swift in Sources */,
+				D8AC1852D7C965989CF0F2B0 /* MockGame.swift in Sources */,
+				D8AC15B92EC1783C307BF902 /* TActions.swift in Sources */,
+				D8AC133CBB3612C9BCD52504 /* THit.swift in Sources */,
+				D8AC1ECB676F73129614BC7A /* THitGotBust.swift in Sources */,
+				D8AC1B4511EAC6A7920CDE41 /* TDouble.swift in Sources */,
+				D8AC10C1A62F1C472B8841DC /* TStand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA79E39C2041D24800BA6E64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA79E3A32041D24800BA6E64 /* main.swift in Sources */,
+				EA79E3AD2041D2E600BA6E64 /* BlackJackCore.swift in Sources */,
+				EA79E3AE2041D2E600BA6E64 /* CardsCore.swift in Sources */,
+				EA79E3AB2041D2E600BA6E64 /* BJProtocols.swift in Sources */,
+				EA79E3AF2041D2E600BA6E64 /* FisherShuffleExtension.swift in Sources */,
+				EA79E3AC2041D2E600BA6E64 /* BlackJackConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +515,7 @@
 		EA79E37F2041D0AE00BA6E64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -346,6 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kujba.blackjack.Core;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -354,6 +537,7 @@
 		EA79E3802041D0AE00BA6E64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -374,6 +558,7 @@
 		EA79E3822041D0AE00BA6E64 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -387,6 +572,7 @@
 		EA79E3832041D0AE00BA6E64 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CoreTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -394,6 +580,30 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA79E3A52041D24800BA6E64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		EA79E3A62041D24800BA6E64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -423,6 +633,15 @@
 			buildConfigurations = (
 				EA79E3822041D0AE00BA6E64 /* Debug */,
 				EA79E3832041D0AE00BA6E64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA79E3A42041D24800BA6E64 /* Build configuration list for PBXNativeTarget "BJ-CLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA79E3A52041D24800BA6E64 /* Debug */,
+				EA79E3A62041D24800BA6E64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
