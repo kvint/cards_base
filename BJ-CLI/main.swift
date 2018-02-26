@@ -6,11 +6,64 @@
 //  Copyright © 2018 Александр Славщик. All rights reserved.
 //
 
-import Darwin
+import Foundation
+
+var game: Game = Game()
+let msg = MessagesQueue()
+
+func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
+    let scoreString = {() -> String in
+        let score: (hard: Int, soft: Int?) = hand.getScore()
+        guard let softScore = score.soft else {
+            return "\(score.hard)"
+        }
+        return "\(score.hard)/\(softScore)"
+    }()
+
+    msg.push("\(prefix) \(hand.cards) (\(scoreString))", wait);
+}
+
+class GameInterface: GameDelegate {
+
+    func roundStarted() {
+        msg.push("------------------------------------------------------------------------------")
+        msg.push("Dealer cards: \(game.model.dealer.cards.first!)")
+        msg.push(nil, 250)
+    }
+
+    func roundEnded() {
+        msg.push("Round ended ------------------------------------------------------------------------------")
+        msg.push()
+
+        var dealer = game.model.dealer as BJHand
+        printResults("Dealer", hand: &dealer)
+
+        for hand in game.model.hands {
+            guard let hnd = hand else {
+                continue
+            }
+            var simpleHand = hnd as BJHand
+            printResults("Hand \(hnd.id)", hand: &simpleHand)
+        }
+    }
+
+    func didDealCard(_ card: Card, _ hand: inout BJHand) {
+        msg.push("\(hand.id) --> \(card)", 100)
+    }
+
+    func didHandDone(_ hand: inout BJUserHand) {
+        var simpleHand = hand as BJHand
+        printResults("Hand \(hand.id) is done with:", hand: &simpleHand, wait: 800)
+        msg.push("", 300)
+    }
+}
+
+var gameInterface = GameInterface()
+game.delegate = gameInterface
 
 func bet(handIndex: Int) -> Void {
     
-    print("Place your bet for hand \(handIndex) (100 by default)")
+    msg.push("Place your bet for hand \(handIndex) (100 by default)")
     
     //    guard let betValue = readLine() else {
     //        return
@@ -31,9 +84,6 @@ func userAction() -> Void {
 
     let actions = game.getActions()
 
-    print("------------------------")
-    usleep(400000)
-    
     let actionsString = {() -> String in
         var str = ""
         for (i, a) in actions.enumerated() {
@@ -41,7 +91,7 @@ func userAction() -> Void {
         }
         return str
     }()
-    print(actionsString)
+    msg.push(actionsString)
     guard let actionInput = readLine() else {
         return
     }
@@ -55,129 +105,47 @@ func userAction() -> Void {
     for (i, a) in actions.enumerated() {
         if i == n {
             switch a {
-            case BJAction.Double: return double()
-            case BJAction.Hit: return hit()
-            case BJAction.Stand: return stand()
-            case BJAction.Split: return split()
+            case BJAction.Double:
+                game.double()
+                return userAction()
+            case BJAction.Hit:
+                game.hit()
+                return userAction()
+            case BJAction.Stand:
+                game.stand()
+                return userAction()
+            case BJAction.Split:
+                game.split()
+                return userAction()
             default: return userAction()
             }
         }
     }
 }
-func double() -> Void {
-    print("-> Double")
-    print()
-    game.double()
-    userAction()
-}
-func hit() -> Void {
-    print("-> Hit")
-    print()
-    game.hit()
-    userAction()
-}
-func stand() -> Void {
-    print("-> Stand")
-    print()
-    game.stand()
-    userAction()
-}
-func split() -> Void {
-    print("-> Split")
-    print()
-    game.split()
-    userAction()
-}
-func deal() {
-    game.deal()
-    print()
-    userAction()
-}
+
 func dumpResults() {
-    print("------------------------")
-    
     guard var userHand = game.model.activeHand as BJHand! else {
         return
     }
-    print("hand: \(userHand.id)")
-    
-    print("Dealer")
-    print(game.model.dealer.cards.first!)
-    print("You:");
-    printResults(hand: &userHand)
+    printResults("You:", hand: &userHand, wait: 400)
 }
-func printResults(hand: inout BJHand) {
-    let scoreString = {() -> String in
-        let score: (hard: Int, soft: Int?) = hand.getScore()
-        guard let softScore = score.soft else {
-            return "(\(score.hard))"
-        }
-        return "(\(score.hard)/\(softScore))"
-    }()
-    
-    print("\(scoreString) \(hand.cards)");
-}
-func showDealerCards() {
 
-}
 func gameCycle() {
+    let totalHands = 5
     var i = 0;
     repeat {
         bet(handIndex: i)
         i += 1
-    } while i < 1
+    } while i < totalHands
     
-    deal();
-    
-    print()
-    print()
-    print("GAME END")
-    print("--------")
+    game.deal();
+    userAction()
+
+    msg.push("GAME END")
+    _ = readLine()
     game.model.clear()
     gameCycle();
 }
-
-class GameInterface: GameDelegate {
-    func roundStarted() {
-        print("-------------")
-        print("Round started")
-    }
-    
-    func roundEnded() {
-        print()
-        print()
-        print("Round ended")
-        print("-------------")
-
-        print("Dealer")
-        var dealer = game.model.dealer as BJHand
-        printResults(hand: &dealer)
-
-        for hand in game.model.hands {
-            guard var hnd = hand else {
-                continue
-            }
-            if hnd.playing {
-                var simpleHand = hnd as BJHand
-                printResults(hand: &simpleHand)
-            }
-        }
-    }
-    
-    func didDealCard(_ card: Card, _ hand: inout BJHand) {
-        print("\(hand.id) --> \(card)")
-    }
-    
-    func didHandDone(_ hand: inout BJUserHand) {
-        var simpleHand = hand as BJHand
-        print("Hand \(hand.id) is done with:")
-        printResults(hand: &simpleHand)
-    }
-}
-
-var game: Game = Game()
-var gameInterface = GameInterface()
-game.delegate = gameInterface
 
 gameCycle()
 

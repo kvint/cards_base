@@ -14,6 +14,7 @@
 		D8AC15B92EC1783C307BF902 /* TActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1A48D7B56D26C31DDE81 /* TActions.swift */; };
 		D8AC1852D7C965989CF0F2B0 /* MockGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10746DE5E8B61D523E33 /* MockGame.swift */; };
 		D8AC1B4511EAC6A7920CDE41 /* TDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1CB75827D92489A7EE73 /* TDouble.swift */; };
+		D8AC1DE9FFEC45B795799FDB /* MessagesQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1BB54785C260E63C7B29 /* MessagesQueue.swift */; };
 		D8AC1ECB676F73129614BC7A /* THitGotBust.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */; };
 		EA79E3742041D0AE00BA6E64 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA79E36A2041D0AE00BA6E64 /* Core.framework */; };
 		EA79E37B2041D0AE00BA6E64 /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EA79E36D2041D0AE00BA6E64 /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +68,7 @@
 		D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THitGotBust.swift; sourceTree = "<group>"; };
 		D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDeal.swift; sourceTree = "<group>"; };
 		D8AC1A48D7B56D26C31DDE81 /* TActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TActions.swift; sourceTree = "<group>"; };
+		D8AC1BB54785C260E63C7B29 /* MessagesQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesQueue.swift; sourceTree = "<group>"; };
 		D8AC1CB75827D92489A7EE73 /* TDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDouble.swift; sourceTree = "<group>"; };
 		EA79E36A2041D0AE00BA6E64 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA79E36D2041D0AE00BA6E64 /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				EA79E3A22041D24800BA6E64 /* main.swift */,
+				D8AC1BB54785C260E63C7B29 /* MessagesQueue.swift */,
 			);
 			path = "BJ-CLI";
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				EA79E3AB2041D2E600BA6E64 /* BJProtocols.swift in Sources */,
 				EA79E3AF2041D2E600BA6E64 /* FisherShuffleExtension.swift in Sources */,
 				EA79E3AC2041D2E600BA6E64 /* BlackJackConstants.swift in Sources */,
+				D8AC1DE9FFEC45B795799FDB /* MessagesQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
