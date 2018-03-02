@@ -65,10 +65,11 @@ protocol BJDealerHand: BJHand {
 }
 
 protocol GameDelegate: class {
+    func didHandChange(_ hand: inout BJHand)
     func roundStarted()
     func roundEnded()
 
+    func didHandUpdate(_ hand: inout BJHand)
     func didDealCard(_ card: Card, _ hand: inout BJHand)
-
     func didHandDone(_ hand: inout BJUserHand)
 }

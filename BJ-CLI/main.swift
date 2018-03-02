@@ -11,7 +11,11 @@ import Foundation
 var game: Game = Game()
 let msg = MessagesQueue()
 
-func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
+let SEP1 = "                                      ROUND /"
+let SEP2 = "                                      NEXT HAND /"
+let SEP3 = "_______________________"
+
+func getResults(hand: inout BJHand) -> String {
     let scoreString = {() -> String in
         let score: (hard: Int, soft: Int?) = hand.getScore()
         guard let softScore = score.soft else {
@@ -19,24 +23,33 @@ func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
         }
         return "\(score.hard)/\(softScore)"
     }()
+    return "\(hand.cards) (\(scoreString))"
+}
 
-    msg.push("\(prefix) \(hand.cards) (\(scoreString))", wait);
+func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
+    msg.push("\(prefix) \(getResults(hand: &hand))", wait);
 }
 
 class GameInterface: GameDelegate {
 
+    func didHandChange(_ hand: inout BJHand) {
+        printResults("You:", hand: &hand, wait: 400)
+    }
+
     func roundStarted() {
-        msg.push("------------------------------------------------------------------------------")
-        msg.push("Dealer cards: \(game.model.dealer.cards.first!)")
-        msg.push(nil, 250)
+        msg.push()
+        msg.push()
+        msg.push("Dealer: [\(game.model.dealer.cards.first!), ?*]")
+        msg.push(SEP1)
+        msg.push("", 500)
     }
 
     func roundEnded() {
-        msg.push("Round ended ------------------------------------------------------------------------------")
         msg.push()
 
         var dealer = game.model.dealer as BJHand
         printResults("Dealer", hand: &dealer)
+        msg.push("", 800)
 
         for hand in game.model.hands {
             guard let hnd = hand else {
@@ -45,16 +58,29 @@ class GameInterface: GameDelegate {
             var simpleHand = hnd as BJHand
             printResults("Hand \(hnd.id)", hand: &simpleHand)
         }
+        msg.push()
+        msg.push()
+        msg.push(SEP1)
+    }
+
+    func didHandUpdate(_ hand: inout BJHand) {
+        printResults("", hand: &hand, wait: 200)
     }
 
     func didDealCard(_ card: Card, _ hand: inout BJHand) {
-        msg.push("\(hand.id) --> \(card)", 100)
+        //msg.push("\(hand.id) --> \(card)", 100)
+        guard hand.cards.count > 2 else {
+            return
+        }
+        msg.push("\(card)", 400)
     }
 
     func didHandDone(_ hand: inout BJUserHand) {
-        var simpleHand = hand as BJHand
-        printResults("Hand \(hand.id) is done with:", hand: &simpleHand, wait: 800)
-        msg.push("", 300)
+        var bjHand = hand as BJHand
+        if hand.cards.count <= 2 {
+            msg.push(getResults(hand: &bjHand))
+        }
+        msg.push(SEP2)
     }
 }
 
@@ -76,8 +102,6 @@ func bet(handIndex: Int) -> Void {
     game.bet(index: handIndex, stake: 100);
 }
 func userAction() -> Void {
-
-    dumpResults()
     guard game.live else {
         return
     }
@@ -91,6 +115,7 @@ func userAction() -> Void {
         }
         return str
     }()
+    msg.push(SEP3)
     msg.push(actionsString)
     guard let actionInput = readLine() else {
         return
@@ -106,28 +131,24 @@ func userAction() -> Void {
         if i == n {
             switch a {
             case BJAction.Double:
+                msg.push("double ", 0, "")
                 game.double()
-                return userAction()
+                break
             case BJAction.Hit:
+                msg.push("hit ", 0, "")
                 game.hit()
-                return userAction()
+                break
             case BJAction.Stand:
                 game.stand()
-                return userAction()
+                break
             case BJAction.Split:
                 game.split()
-                return userAction()
-            default: return userAction()
+                break
+            default: break
             }
         }
     }
-}
-
-func dumpResults() {
-    guard var userHand = game.model.activeHand as BJHand! else {
-        return
-    }
-    printResults("You:", hand: &userHand, wait: 400)
+    return userAction()
 }
 
 func gameCycle() {
@@ -137,8 +158,12 @@ func gameCycle() {
         bet(handIndex: i)
         i += 1
     } while i < totalHands
-    
+
     game.deal();
+    if var hand = game.model.activeHand {
+        var bjHand = hand as BJHand
+        printResults("You:", hand: &bjHand, wait: 400)
+    }
     userAction()
 
     msg.push("GAME END")

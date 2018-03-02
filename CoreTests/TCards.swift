@@ -11,7 +11,7 @@ import XCTest
 class TCards: XCTestCase {
 
     func testOutput() {
-        XCTAssert("♠️ A" == Card(Rank.Ace, Suit.Spades).description)
+        XCTAssert("♠️A" == Card(Rank.Ace, Suit.Spades).description)
     }
     func testUniq() {
         let card1 = Card(Rank.c2, Suit.Spades)
@@ -30,12 +30,12 @@ class TCards: XCTestCase {
     }
 
     func testDeck() {
-        let deck = CardDeck.getDeck()
+        let deck = Deck()
         XCTAssert(deck.count == 52, "Deck should be counts 52")
     }
 
     func testDeckShuffle() {
-        let deck = CardDeck.getDeck().shuffled()
+        let deck = Deck().shuffled()
         XCTAssert(deck.count == 52, "Shuffled deck should be 52")
     }
     

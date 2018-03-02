@@ -25,7 +25,7 @@ class Game: BJGame {
         while (self.model.dealer as! Hand).getFinalScore() < 17 {
             self.dealCardTo(hand: &dealer)
         }
-
+        self.delegate?.didHandChange(&dealer)
         self.delegate?.roundEnded()
     }
 
@@ -61,9 +61,12 @@ class Game: BJGame {
             guard let aHand = self.model.activeHand else {
                 return self.nextStep()
             }
+            var bjHand = aHand as BJHand
+
             guard aHand.getActions().count > 0 else {
                 return self.nextStep()
             }
+            self.delegate?.didHandChange(&bjHand)
         }
     }
 
@@ -92,8 +95,11 @@ class Game: BJGame {
 
     internal func dealCards() {
         var dealer = self.model.dealer as BJHand
-        for _ in 1...2 {
+        for i in 1...2 {
             self.dealCardTo(hand: &dealer)
+            if i == 2 {
+                self.delegate?.didHandUpdate(&dealer)
+            }
             for var h in self.model.hands {
                 guard var hand = h else {
                     continue
@@ -101,6 +107,11 @@ class Game: BJGame {
                 hand.isDone = false
                 hand.playing = true
                 self.dealCardToUser(hand: &hand)
+
+                if i == 2 {
+                    var bjHand = hand as BJHand
+                    self.delegate?.didHandUpdate(&bjHand)
+                }
             }
         }
     }
@@ -112,6 +123,10 @@ class Game: BJGame {
         hand.stake += hand.stake
         self.dealCardToUser(hand: &hand)
         hand.isDone = true
+
+        var bjHand = hand as BJHand
+        self.delegate?.didHandUpdate(&bjHand)
+
         self.nextStep()
     }
 
@@ -124,11 +139,14 @@ class Game: BJGame {
     }
 
     func hit() {
-        print("hit")
         guard var hand = self.model.activeHand else {
             return;
         }
         self.dealCardToUser(hand: &hand)
+
+        var bjHand = hand as BJHand
+        self.delegate?.didHandUpdate(&bjHand)
+
         self.nextStep()
     }
 
@@ -147,16 +165,16 @@ class Game: BJGame {
     }
     static func getCardScore(card: Card, soft: Bool = false) -> Int {
         switch (card.rank) {
-        case Rank.c2: return 2
-        case Rank.c3: return 3
-        case Rank.c4: return 4
-        case Rank.c5: return 5
-        case Rank.c6: return 6
-        case Rank.c7: return 7
-        case Rank.c8: return 8
-        case Rank.c9: return 9
-        case Rank.c10, Rank.Jack, Rank.Queen, Rank.King: return 10
-        case Rank.Ace: return (soft ? 1 : 11)
+        case .c2: return 2
+        case .c3: return 3
+        case .c4: return 4
+        case .c5: return 5
+        case .c6: return 6
+        case .c7: return 7
+        case .c8: return 8
+        case .c9: return 9
+        case .c10, .Jack, .Queen, .King: return 10
+        case .Ace: return (soft ? 1 : 11)
         }
     }
 }
@@ -174,7 +192,7 @@ class GameModel: BJModel {
     func createDeck() {
         self.deck = []
         for _ in 1...4 {
-            self.deck += CardDeck.getDeck()
+            self.deck += Deck()
         }
         self.deck.shuffle()
     }
