@@ -160,7 +160,7 @@ func gameCycle() {
     } while i < totalHands
 
     game.deal();
-    if var hand = game.model.activeHand {
+    if let hand = game.model.activeHand {
         var bjHand = hand as BJHand
         printResults("You:", hand: &bjHand, wait: 400)
     }

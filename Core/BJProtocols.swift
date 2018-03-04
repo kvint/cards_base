@@ -26,8 +26,6 @@ protocol BJGame {
     func stand()
 
     func getActions() -> Set<BJAction>
-
-    static func getCardScore(card: Card, soft: Bool) -> Int
 }
 
 protocol BJModel {
@@ -45,7 +43,6 @@ protocol BJModel {
 }
 
 protocol BJHand {
-    var id: Int {get}
     var cards: [Card] {get set}
 
     func getScore() -> (hard: Int, soft: Int?)
@@ -53,6 +50,9 @@ protocol BJHand {
 }
 
 protocol BJUserHand: BJHand {
+    var id: String {get}
+    var index: Int {get}
+    
     var stake: Double {get set}
     var playing: Bool {get set}
     var isDone: Bool {get set}

@@ -11,8 +11,8 @@ import XCTest
 
 class THand: XCTestCase {
     func testUniq() {
-        let hand1 = Hand()
-        let hand2 = Hand()
+        let hand1 = Hand("1")
+        let hand2 = Hand("2")
 
         XCTAssert(hand1 != hand2, "Hands should not be equal")
     }

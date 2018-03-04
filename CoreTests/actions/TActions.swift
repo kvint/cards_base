@@ -37,7 +37,7 @@ class TActions: XCTestCase {
     }
     func checkActions(_ msg: String, _ ranks: [Rank], shouldBe: Set<BJAction>) -> Void {
         print("Check actions \(msg)")
-        let hand = Hand()
+        let hand = UserHand("0")
         for rank in ranks {
             hand.cards.append(Card(rank))
         }
