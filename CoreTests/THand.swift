@@ -77,4 +77,28 @@ class THand: XCTestCase {
         XCTAssert(score.hard == value.hard, "hard \(ranks) should be equal \(value.hard) but it is \(score.hard)")
         XCTAssert(score.soft == value.soft, "soft \(ranks) should be \(value.soft) but it is \(score.soft)")
     }
+    func testSplit() {
+        let hand = UserHand()
+        hand.cards = [
+            Card(Rank.c2),
+            Card(Rank.c2)
+        ];
+        let sHand = hand.split()
+        XCTAssertNotNil(sHand)
+        XCTAssertEqual(hand.cards.count, 1)
+        XCTAssertEqual(sHand?.cards.count, 1)
+    }
+    func testSplitFailure() {
+        let hand = UserHand()
+        hand.cards = [
+            Card(Rank.c2),
+            Card(Rank.c2),
+            Card(Rank.c2),
+            Card(Rank.c2),
+            Card(Rank.c2)
+        ];
+        let sHand = hand.split()
+        XCTAssertEqual(hand.cards.count, 5)
+        XCTAssertNil(sHand)
+    }
 }

@@ -73,10 +73,14 @@ class Game: BJGame {
     }
 
     func bet(index: Int, stake: Double) {
-        guard var hand = self.model.getHand(at: index, create: true) else {
-            return
+        return self.bet(handId: String(index), stake: stake)
+    }
+    func bet(handId: String, stake: Double) {
+        var hand = self.model.getHand(id: handId)
+        if hand == nil {
+            hand = self.model.createHand(id: handId)
         }
-        hand.stake = stake
+        hand!.stake = stake
     }
 
     func pullCard() -> Card {
@@ -132,7 +136,24 @@ class Game: BJGame {
     }
 
     func split() {
-        //self.model.split();
+        guard var hand = self.model.activeHand else {
+            return;
+        }
+
+        var newHands = self.model.splitHand(id: hand.id)
+
+        var aHand = newHands.active
+        var sHand = newHands.additional
+
+        self.dealCardToUser(hand: &aHand)
+        self.dealCardToUser(hand: &sHand)
+
+        if aHand.cards.first?.rank == Rank.Ace && sHand.cards.first?.rank == Rank.Ace {
+            // two aces case
+            aHand.isDone = true
+            sHand.isDone = true
+        }
+
         self.nextStep();
     }
 

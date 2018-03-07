@@ -57,7 +57,7 @@ struct Card: CustomStringConvertible, Hashable {
 
     private(set) var hashValue: Int = 0
 
-    init(_ rank: Rank, _ suit: Suit = Suit.random()) {
+    init(_ rank: Rank, _ suit: Suit = Suit.Clubs) {
         self.rank = rank;
         self.suit = suit;
         self.hashValue = suit.hashValue | (rank.hashValue << 16)

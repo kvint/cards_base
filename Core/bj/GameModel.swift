@@ -11,7 +11,7 @@ class GameModel: BJModel {
     var dealer: BJDealerHand = Dealer()
     var activeHandIndex: Int? = nil
 
-    private var handsDict: [Int: BJUserHand] = [:]
+    private var handsDict: [String: BJUserHand] = [:]
     private(set) var hands: [BJUserHand?] = []
     private(set) var activeHand: BJUserHand? = nil
 
@@ -23,21 +23,13 @@ class GameModel: BJModel {
         self.deck.shuffle()
     }
 
-    func getHand(at: Int, create: Bool = false) -> BJUserHand? {
-        guard let hand = self.handsDict[at] else {
-            if create {
-                return self.createHand(at)
-            }
-            return nil
-        }
-        return hand
+    func getHand(id: String) -> BJUserHand? {
+        return self.handsDict[id]
     }
 
-    func createHand(_ at: Int) -> BJUserHand? {
-        guard let newHand = UserHand(String(at)) as? BJUserHand else {
-            return nil
-        }
-        self.handsDict[at] = newHand
+    func createHand(id: String) -> BJUserHand {
+        let newHand = UserHand(id)
+        self.handsDict[id] = newHand
         self.hands.append(newHand)
         return newHand
     }
@@ -69,23 +61,18 @@ class GameModel: BJModel {
         return nil
     }
 
-    func getNextHand() -> BJUserHand? {
-        guard let aHandId = self.activeHand?.id else {
-            return nil
+    func splitHand(id: String) -> (active: BJUserHand, additional: BJUserHand) {
+        guard let aHand = self.getHand(id: id) else {
+            fatalError("Failed to split")
         }
-        // TODO: refactor-refactor
-        var n = false;
-        for hand in hands {
-            if hand != nil && n {
-                return hand
-            }
-            if let handId = hand?.id {
-                if handId == aHandId {
-                    n = true
-                }
-            }
+        guard let sHand = aHand.split() else {
+            fatalError("Failed to split")
         }
-        return nil
+
+        self.handsDict[sHand.id] = sHand
+        self.hands.append(sHand)
+
+        return (active: aHand, additional: sHand)
     }
 
     func clear() {

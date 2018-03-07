@@ -16,6 +16,7 @@ protocol BJGame {
     var live: Bool {get}
 
     func bet(index: Int, stake: Double)
+    func bet(handId: String, stake: Double)
     func pullCard() -> Card
 
     func deal()
@@ -36,13 +37,14 @@ protocol BJModel {
 
     func setActiveHand(index: Int?) -> Void
     func createDeck() -> Void
-    func getHand(at: Int, create: Bool) -> BJUserHand?
-    func getNextHand() -> BJUserHand?
+    func createHand(id: String) -> BJUserHand
+    func getHand(id: String) -> BJUserHand?
 
     func clear() -> Void
 }
 
 protocol BJHand {
+    var id: String {get}
     var cards: [Card] {get set}
 
     func getScore() -> (hard: Int, soft: Int?)
@@ -50,13 +52,11 @@ protocol BJHand {
 }
 
 protocol BJUserHand: BJHand {
-    var id: String {get}
-    var index: Int {get}
-    
     var stake: Double {get set}
     var playing: Bool {get set}
     var isDone: Bool {get set}
 
+    func split() -> BJUserHand?
     func getActions() -> Set<BJAction>
 }
 

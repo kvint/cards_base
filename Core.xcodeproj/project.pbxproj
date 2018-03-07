@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3415D41FC817B6F46333DC12 /* TSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415DC348D0080F03D6BD46B /* TSplit.swift */; };
 		AF0FA18D204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
 		AF0FA18E204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
 		AF0FA18F204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3415DC348D0080F03D6BD46B /* TSplit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSplit.swift; sourceTree = "<group>"; };
 		AF0FA18C204BD1C200C05372 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
 		AF444122204A7AFC00F213DF /* UserHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHand.swift; sourceTree = "<group>"; };
 		D8AC10746DE5E8B61D523E33 /* MockGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGame.swift; sourceTree = "<group>"; };
@@ -133,6 +135,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3415DE678AC68E456FA0DDE9 /* split */ = {
+			isa = PBXGroup;
+			children = (
+				3415DC348D0080F03D6BD46B /* TSplit.swift */,
+			);
+			path = split;
+			sourceTree = "<group>";
+		};
 		D8AC1660A807A1516EB09A90 /* stand */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +187,7 @@
 				D8AC18A377D463684092E525 /* hit */,
 				D8AC1D80F4838D1740BAA077 /* double */,
 				D8AC1660A807A1516EB09A90 /* stand */,
+				3415DE678AC68E456FA0DDE9 /* split */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -418,6 +429,7 @@
 				AF444125204A7AFC00F213DF /* UserHand.swift in Sources */,
 				D8AC1C582023B48BF4DE2DF7 /* GameModel.swift in Sources */,
 				D8AC15298B04EB7867BB0F7A /* Dealer.swift in Sources */,
+				3415D41FC817B6F46333DC12 /* TSplit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

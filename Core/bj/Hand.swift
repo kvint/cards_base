@@ -7,8 +7,8 @@ class Hand: BJHand, Hashable {
     private(set) var id: String
     
     init(_ id: String) {
-        self.id = id;
-        self.hashValue = id.hashValue;
+        self.id = id
+        self.hashValue = id.hashValue
     }
     convenience init() {
         self.init("0")

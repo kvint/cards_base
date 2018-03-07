@@ -13,11 +13,7 @@ class UserHand: Hand, BJUserHand {
     var isDone: Bool = false
     var stake: Double = 0
     var playing: Bool = false
-    
-    var index: Int {
-        fatalError("Hand index is not implemented")
-    }
-    
+
     func getActions() -> Set<BJAction> {
         guard self.cards.count > 1 else {
             return [] // TODO: throw exception?
@@ -52,6 +48,15 @@ class UserHand: Hand, BJUserHand {
             }
         }
         return actions;
+    }
+    func split() -> BJUserHand? {
+        guard self.cards.count == 2 else {
+            return nil
+        }
+        var sHand = UserHand(self.id + "s")
+        let card: Card = self.cards.popLast()!
+        sHand.cards.append(card)
+        return sHand
     }
     override func clear() {
         super.clear()

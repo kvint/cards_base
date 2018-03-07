@@ -42,11 +42,11 @@ class TDeal: XCTestCase {
     }
     func testCardsCount() {
         XCTAssertEqual(self.game.model.dealer.cards.count, 2)
-        XCTAssertEqual(self.game.model.getHand(at: 1)?.cards.count, 2)
-        XCTAssertEqual(self.game.model.getHand(at: 2)?.cards.count, 2)
-        XCTAssertEqual(self.game.model.getHand(at: 3)?.cards.count, 2)
-        XCTAssertEqual(self.game.model.getHand(at: 4)?.cards.count, 2)
-        XCTAssertEqual(self.game.model.getHand(at: 5)?.cards.count, 2)
+        XCTAssertEqual(self.game.model.getHand(id: "1")?.cards.count, 2)
+        XCTAssertEqual(self.game.model.getHand(id: "2")?.cards.count, 2)
+        XCTAssertEqual(self.game.model.getHand(id: "3")?.cards.count, 2)
+        XCTAssertEqual(self.game.model.getHand(id: "4")?.cards.count, 2)
+        XCTAssertEqual(self.game.model.getHand(id: "5")?.cards.count, 2)
     }
     func testActiveHand() {
         XCTAssertNotNil(self.game.model.activeHand)
