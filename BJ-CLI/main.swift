@@ -99,7 +99,7 @@ func bet(handIndex: Int) -> Void {
     //        return game.bet(index: handIndex, stake: 100);
     //    }
     //    game.bet(index: handIndex, stake: betDigit);
-    game.bet(index: handIndex, stake: 100);
+    try! game.bet(index: handIndex, stake: 100);
 }
 func userAction() -> Void {
     guard game.live else {
@@ -132,17 +132,17 @@ func userAction() -> Void {
             switch a {
             case BJAction.Double:
                 msg.push("double ", 0, "")
-                game.double()
+                try! game.double()
                 break
             case BJAction.Hit:
                 msg.push("hit ", 0, "")
-                game.hit()
+                try! game.hit()
                 break
             case BJAction.Stand:
-                game.stand()
+                try! game.stand()
                 break
             case BJAction.Split:
-                game.split()
+                try! game.split()
                 break
             default: break
             }
@@ -159,7 +159,7 @@ func gameCycle() {
         i += 1
     } while i < totalHands
 
-    game.deal();
+    try! game.deal();
     if let hand = game.model.activeHand {
         var bjHand = hand as BJHand
         printResults("You:", hand: &bjHand, wait: 400)
