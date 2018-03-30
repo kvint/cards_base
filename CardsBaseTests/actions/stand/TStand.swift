@@ -4,16 +4,13 @@
 //
 
 import XCTest
-@testable import CardsBase
 
-class TStand: XCTestCase {
-
-    let game = MockGame()
+class TStand: TBJGameCase {
 
     override func setUp() {
         super.setUp()
 
-        self.game.setUp(deck: [
+        fillDeck([
             Card(Rank.Ace), Card(Rank.Ace),
 
             Card(Rank.Ace), Card(Rank.Ace),

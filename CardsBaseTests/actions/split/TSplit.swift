@@ -4,16 +4,13 @@
 //
 
 import XCTest
-@testable import CardsBase
 
-class TSplit: XCTestCase {
-
-    let game = MockGame()
+class TSplit: TBJGameCase {
 
     override func setUp() {
         super.setUp()
 
-        self.game.setUp(deck: [
+        fillDeck([
             Card(Rank.Ace), Card(Rank.Ace),
 
             Card(Rank.c2), Card(Rank.c2),
@@ -27,7 +24,7 @@ class TSplit: XCTestCase {
 
             Card(Rank.Ace), Card(Rank.Ace),
             Card(Rank.Ace), Card(Rank.Ace)
-        ])
+        ]);
 
         try! self.game.bet(index: 1, stake: 10)
 

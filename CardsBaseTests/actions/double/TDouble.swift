@@ -4,16 +4,13 @@
 //
 
 import XCTest
-@testable import CardsBase
 
-class TDouble: XCTestCase {
-
-    let game = MockGame()
+class TDouble: TBJGameCase {
 
     override func setUp() {
         super.setUp()
 
-        self.game.setUp(deck: [
+        fillDeck([
             // Dealer
             Card(Rank.Queen), Card(Rank.Queen),
 
@@ -26,7 +23,6 @@ class TDouble: XCTestCase {
         ])
 
         try! self.game.bet(index: 1, stake: 10)
-
         try! self.game.deal()
     }
 

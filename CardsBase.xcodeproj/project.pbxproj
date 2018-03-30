@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3415D41FC817B6F46333DC12 /* TSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415DC348D0080F03D6BD46B /* TSplit.swift */; };
 		3415DDDF4BEBD5439A93423D /* TBetsInitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415D929C520A5CCB508A767 /* TBetsInitial.swift */; };
+		3415DE63F7E0276E541CE672 /* TBlackjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415D73240EF765C579910F7 /* TBlackjack.swift */; };
+		3415DFF2CC8A62BA49A21272 /* TBJGameCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3415D15E5078F1BB454FBD69 /* TBJGameCase.swift */; };
 		AF0FA18D204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
 		AF0FA18E204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
 		AF0FA18F204BD1C200C05372 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0FA18C204BD1C200C05372 /* Hand.swift */; };
@@ -82,6 +84,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3415D15E5078F1BB454FBD69 /* TBJGameCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBJGameCase.swift; sourceTree = "<group>"; };
+		3415D73240EF765C579910F7 /* TBlackjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBlackjack.swift; sourceTree = "<group>"; };
 		3415D929C520A5CCB508A767 /* TBetsInitial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBetsInitial.swift; sourceTree = "<group>"; };
 		3415DC348D0080F03D6BD46B /* TSplit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSplit.swift; sourceTree = "<group>"; };
 		AF0FA18C204BD1C200C05372 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
@@ -143,6 +147,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3415D43C8C5A569C1CEAAA88 /* blackjack */ = {
+			isa = PBXGroup;
+			children = (
+				3415D73240EF765C579910F7 /* TBlackjack.swift */,
+			);
+			path = blackjack;
+			sourceTree = "<group>";
+		};
 		3415D760EAF05B05421BA1B4 /* betting */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +286,8 @@
 				D8AC1EAA64D132CA255F170F /* actions */,
 				3415D760EAF05B05421BA1B4 /* betting */,
 				D8AC1314187BC9746FDD337B /* TInitialThrowing.swift */,
+				3415D43C8C5A569C1CEAAA88 /* blackjack */,
+				3415D15E5078F1BB454FBD69 /* TBJGameCase.swift */,
 			);
 			path = CardsBaseTests;
 			sourceTree = "<group>";
@@ -470,6 +484,8 @@
 				3415D41FC817B6F46333DC12 /* TSplit.swift in Sources */,
 				3415DDDF4BEBD5439A93423D /* TBetsInitial.swift in Sources */,
 				D8AC1F3A11F093745ECD6152 /* TInitialThrowing.swift in Sources */,
+				3415DE63F7E0276E541CE672 /* TBlackjack.swift in Sources */,
+				3415DFF2CC8A62BA49A21272 /* TBJGameCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,16 +7,13 @@
 //
 
 import XCTest
-@testable import CardsBase
 
-class TBetsInitial: XCTestCase {
-
-    let game = MockGame()
+class TBetsInitial: TBJGameCase {
 
     override func setUp() {
         super.setUp()
 
-        self.game.setUp(deck: [
+        fillDeck([
             Card(Rank.Ace),
             Card(Rank.Ace),
             Card(Rank.Ace),

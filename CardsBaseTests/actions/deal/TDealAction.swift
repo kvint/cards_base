@@ -9,12 +9,9 @@
 import Foundation
 
 import XCTest
-@testable import CardsBase
 
-class TDealAction: XCTestCase {
-    
-    let game = MockGame()
-    
+class TDealAction: TBJGameCase {
+
     func testInitial() {
         XCTAssertEqual(game.getActions(), [])
     }

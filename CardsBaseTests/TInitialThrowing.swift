@@ -5,10 +5,8 @@
 
 
 import XCTest
-@testable import CardsBase
 
-class TInitialThrowing: XCTestCase {
-    let game = MockGame()
+class TInitialThrowing: TBJGameCase {
 
     func testDeal() {
         XCTAssertThrowsError(try self.game.deal(), "No stake deal case") { (error) -> Void in

@@ -4,16 +4,13 @@
 //
 
 import XCTest
-@testable import CardsBase
 
-class THitGotBust: XCTestCase {
-
-    let game = MockGame()
+class THitGotBust: TBJGameCase {
 
     override func setUp() {
         super.setUp()
 
-        self.game.setUp(deck: [
+        fillDeck([
             // Dealer
             Card(Rank.c10), Card(Rank.c10),
 
@@ -22,7 +19,6 @@ class THitGotBust: XCTestCase {
         ])
 
         try! self.game.bet(index: 1, stake: 10)
-
         try! self.game.deal()
     }
 
