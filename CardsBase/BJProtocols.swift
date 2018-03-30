@@ -9,7 +9,7 @@ public enum BJAction {
     case Deal, Double, Split, Hit, Stand, Insurance
 }
 public enum BJError: Error {
-    case handError, betError, deckError
+    case handError, betError, noCardsLeft
 }
 public protocol UserModel {
     var balance: Double {get}

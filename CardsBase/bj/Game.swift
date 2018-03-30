@@ -5,9 +5,13 @@
 import Foundation
 
 public class Game: BJGame {
-    
-    public weak var delegate: GameDelegate? = nil
 
+    internal enum Dealing {
+        case Linear, Classic
+    }
+    internal var dealingType: Dealing = .Classic
+
+    public weak var delegate: GameDelegate? = nil
     public var model: GameModel = GameModel()
     public var live: Bool = false //TODO: make private
 
@@ -41,21 +45,28 @@ public class Game: BJGame {
         self.delegate?.didHandChange(&dealer)
         
         while dealer.getFinalScore() < BlackJackConstants.MAX_SCORE {
-            self.dealCardTo(hand: &dealer)
+            do {
+                try self.dealCardTo(hand: &dealer)
+            } catch BJError.noCardsLeft {
+                // no cards left, so just stop dealing
+                break;
+            } catch {
+                fatalError("Unhandled error during dealing to dealer")
+            }
         }
         self.delegate?.roundEnded()
     }
 
-    internal func dealCardToUser(hand: inout BJUserHand) {
+    internal func dealCardToUser(hand: inout BJUserHand) throws -> Void {
         guard var uhnd = hand as BJHand? else {
             return
         }
-        self.dealCardTo(hand: &uhnd)
+        try self.dealCardTo(hand: &uhnd)
     }
 
-    internal func dealCardTo(hand: inout BJHand) {
+    internal func dealCardTo(hand: inout BJHand) throws -> Void {
         guard let card = model.deck.popLast() else {
-            fatalError("There is no cards left in deck")
+            throw BJError.noCardsLeft
         }
         hand.cards.append(card)
         self.delegate?.didDealCard(card, &hand)
@@ -121,29 +132,47 @@ public class Game: BJGame {
         self.model.createDeck()
 
         //deal the cards
-        self.dealCards()
+        try self.dealCards()
         self.startRound()
     }
 
-    internal func dealCards() {
+    internal func dealCards() throws {
         var dealer = self.model.dealer as BJHand
-        for i in 1...2 {
-            self.dealCardTo(hand: &dealer)
-            if i == 2 {
-                self.delegate?.didHandUpdate(&dealer)
+        switch dealingType {
+        case .Linear:
+            for _ in 1...2 {
+                try self.dealCardTo(hand: &dealer) // TODO: rethrow
             }
-            self.model.hands.forEach {
+            try self.model.hands.forEach {
                 if var hand = $0 {
-                    hand.isDone = false
-                    hand.playing = true
-                    self.dealCardToUser(hand: &hand)
-
-                    if i == 2 {
-                        var bjHand = hand as BJHand
-                        self.delegate?.didHandUpdate(&bjHand)
+                    for _ in 1...2 {
+                        hand.isDone = false
+                        hand.playing = true
+                        try self.dealCardToUser(hand: &hand)
                     }
                 }
             }
+        break;
+        case .Classic:
+            for i in 1...2 {
+                try self.dealCardTo(hand: &dealer) // TODO: rethrow
+                if i == 2 {
+                    self.delegate?.didHandUpdate(&dealer)
+                }
+                try self.model.hands.forEach {
+                    if var hand = $0 {
+                        hand.isDone = false
+                        hand.playing = true
+                        try self.dealCardToUser(hand: &hand)
+
+                        if i == 2 {
+                            var bjHand = hand as BJHand
+                            self.delegate?.didHandUpdate(&bjHand)
+                        }
+                    }
+                }
+            }
+        break;
         }
     }
 
@@ -152,7 +181,7 @@ public class Game: BJGame {
             throw BJError.handError
         }
         hand.stake += hand.stake
-        self.dealCardToUser(hand: &hand)
+        try self.dealCardToUser(hand: &hand)
         hand.isDone = true
 
         var bjHand = hand as BJHand
@@ -166,21 +195,23 @@ public class Game: BJGame {
             throw BJError.handError
         }
 
-        let newHands = self.model.splitHand(id: hand.id)
+        let newHands = self.model.splitHand(id: hand.id) // TODO: add try
 
         var aHand = newHands.active
         var sHand = newHands.additional
 
-        self.dealCardToUser(hand: &aHand)
-        self.dealCardToUser(hand: &sHand)
+        defer {
+            self.nextStep()
+        }
+
+        try self.dealCardToUser(hand: &aHand)
+        try self.dealCardToUser(hand: &sHand)
 
         if aHand.cards.first?.rank == Rank.Ace && sHand.cards.first?.rank == Rank.Ace {
             // two aces case
             aHand.isDone = true
             sHand.isDone = true
         }
-
-        self.nextStep();
     }
 
     public func insurance() throws {
@@ -191,12 +222,15 @@ public class Game: BJGame {
         guard var hand = self.model.activeHand else {
             throw BJError.handError
         }
-        self.dealCardToUser(hand: &hand)
+
+        defer {
+            self.nextStep()
+        }
+
+        try self.dealCardToUser(hand: &hand)
 
         var bjHand = hand as BJHand
         self.delegate?.didHandUpdate(&bjHand)
-
-        self.nextStep()
     }
 
     public func stand() throws {

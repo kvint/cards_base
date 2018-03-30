@@ -4,35 +4,21 @@
 //
 
 import Foundation
+class MockGameModel: GameModel {
+    public var mockDeck: [Card]!
+    override func createDeck() {
+        deck = mockDeck
+    }
+}
 class MockGame: Game {
 
+    override public init() {
+        super.init()
+        self.model = MockGameModel()
+        self.dealingType = .Linear
+    }
+
     func setUp(deck: [Card]) -> Void {
-        self.model.deck = deck.reversed()
-    }
-    internal override func dealCards() {
-        for _ in 1...2 {
-            var dealer = self.model.dealer as BJHand
-            self.dealCardTo(hand: &dealer)
-        }
-
-        for h in self.model.hands {
-            guard var hand = h else {
-                continue
-            }
-            hand.isDone = false
-            hand.playing = true
-            for _ in 1...2 {
-                self.dealCardToUser(hand: &hand)
-            }
-        }
-    }
-
-    override func deal() throws {
-        print("dealing...")
-        //deal the cards
-        self.dealCards()
-        print("dealt")
-        self.startRound()
-        print("round started")
+        (model as! MockGameModel).mockDeck = deck.reversed()
     }
 }

@@ -32,7 +32,6 @@ class THit: XCTestCase {
 
     func testHit() {
         let hand = self.game.model.activeHand!
-
         try! self.game.hit()
         XCTAssertEqual(hand.cards.count, 3)
 
