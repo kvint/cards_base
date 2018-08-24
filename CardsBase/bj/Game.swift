@@ -80,7 +80,7 @@ public class Game: BJGame {
         guard var hand = self.model.activeHand else {
             return self.endRound()
         }
-        if hand.getScore().hard >= BlackJackConstants.MAX_SCORE {
+        if hand.gotBusted() {
             hand.isDone = true
             hand.playing = false // got bust
         }

@@ -52,6 +52,7 @@ public protocol BJHand {
     var cards: [Card] {get set}
 
     func getScore() -> (hard: Int, soft: Int?)
+    func gotBusted() -> Bool
     func getFinalScore() -> Int
     func clear() -> Void
 }
