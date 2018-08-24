@@ -80,10 +80,7 @@ public class Game: BJGame {
         guard var hand = self.model.activeHand else {
             return self.endRound()
         }
-        if hand.gotBusted() {
-            hand.isDone = true
-            hand.playing = false // got bust
-        }
+        self.payoutHand(&hand)
         if hand.isDone {
             self.delegate?.didHandDone(&hand)
 
@@ -103,7 +100,24 @@ public class Game: BJGame {
             self.delegate?.didHandChange(&bjHand)
         }
     }
-
+    public func payoutHand(_ hand: inout BJUserHand) -> Void {
+        guard !hand.payedOut else {
+            return
+        }
+        
+        if hand.gotBusted() {
+            hand.playing = false
+            hand.isDone = true
+            hand.payedOut = true
+        }
+        if hand.gotBlackjack() {
+            let stake = hand.stake
+            hand.win = stake * 2.5
+            hand.isDone = true
+            hand.playing = false
+            hand.payedOut = true
+        }
+    }
     public func bet(index: Int, stake: Double) throws -> Void {
         return try self.bet(handId: String(index), stake: stake)
     }
@@ -120,6 +134,7 @@ public class Game: BJGame {
             throw BJError.betError
         }
         hand!.stake = finalStake
+        self.delegate?.betOnHand(handId: handId)
     }
 
     public func deal() throws {

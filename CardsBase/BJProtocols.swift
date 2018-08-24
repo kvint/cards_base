@@ -50,9 +50,11 @@ public protocol BJModel {
 public protocol BJHand {
     var id: String {get}
     var cards: [Card] {get set}
-
+    var payedOut: Bool {get set}
     func getScore() -> (hard: Int, soft: Int?)
     func gotBusted() -> Bool
+    func gotBlackjack() -> Bool
+    func gotCharlie() -> Bool
     func getFinalScore() -> Int
     func clear() -> Void
 }
@@ -83,4 +85,5 @@ public protocol GameDelegate: class {
     func didHandUpdate(_ hand: inout BJHand)
     func didDealCard(_ card: Card, _ hand: inout BJHand)
     func didHandDone(_ hand: inout BJUserHand)
+    func betOnHand(handId: String) -> Void
 }

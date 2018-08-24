@@ -28,12 +28,14 @@
 		D8AC164AE83D186808C0FE87 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC115AFDCC78CBD9729269 /* Game.swift */; };
 		D8AC17ECE6BA3C49C6E6191C /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1383AB39F158C5957C85 /* Dealer.swift */; };
 		D8AC1852D7C965989CF0F2B0 /* MockGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10746DE5E8B61D523E33 /* MockGame.swift */; };
+		D8AC1966F0CFD7643D5AC05D /* TPBlackjackPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1B92D63DE80090688B9E /* TPBlackjackPush.swift */; };
 		D8AC1B4511EAC6A7920CDE41 /* TDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1CB75827D92489A7EE73 /* TDouble.swift */; };
 		D8AC1BE2AFFA0D3DF29F2333 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC115AFDCC78CBD9729269 /* Game.swift */; };
 		D8AC1C4D8D9BD3EA7E30CB16 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC115AFDCC78CBD9729269 /* Game.swift */; };
 		D8AC1C582023B48BF4DE2DF7 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1A0AA2AD99F3F9558922 /* GameModel.swift */; };
 		D8AC1DE9FFEC45B795799FDB /* MessagesQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1BB54785C260E63C7B29 /* MessagesQueue.swift */; };
 		D8AC1ECB676F73129614BC7A /* THitGotBust.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */; };
+		D8AC1EDD9117D2A176371971 /* TPBlackjackWin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC18FA269DAE940C7A1B92 /* TPBlackjackWin.swift */; };
 		D8AC1F3A11F093745ECD6152 /* TInitialThrowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1314187BC9746FDD337B /* TInitialThrowing.swift */; };
 		D8AC1F981DA32E5B324FB75D /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AC1A0AA2AD99F3F9558922 /* GameModel.swift */; };
 		EA5AB25F205CCCD3004408A5 /* TDealAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5AB25E205CCCD3004408A5 /* TDealAction.swift */; };
@@ -98,8 +100,10 @@
 		D8AC15719D70698A3AA9B0EE /* TStand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStand.swift; sourceTree = "<group>"; };
 		D8AC1792466C737FB1F22BB0 /* THitGotBust.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THitGotBust.swift; sourceTree = "<group>"; };
 		D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDeal.swift; sourceTree = "<group>"; };
+		D8AC18FA269DAE940C7A1B92 /* TPBlackjackWin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPBlackjackWin.swift; sourceTree = "<group>"; };
 		D8AC1A0AA2AD99F3F9558922 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		D8AC1A48D7B56D26C31DDE81 /* TActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TActions.swift; sourceTree = "<group>"; };
+		D8AC1B92D63DE80090688B9E /* TPBlackjackPush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPBlackjackPush.swift; sourceTree = "<group>"; };
 		D8AC1BB54785C260E63C7B29 /* MessagesQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesQueue.swift; sourceTree = "<group>"; };
 		D8AC1CB75827D92489A7EE73 /* TDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDouble.swift; sourceTree = "<group>"; };
 		EA5AB25E205CCCD3004408A5 /* TDealAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDealAction.swift; sourceTree = "<group>"; };
@@ -169,6 +173,15 @@
 				3415DC348D0080F03D6BD46B /* TSplit.swift */,
 			);
 			path = split;
+			sourceTree = "<group>";
+		};
+		D8AC16428A09DF7E23208743 /* payouts */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC18FA269DAE940C7A1B92 /* TPBlackjackWin.swift */,
+				D8AC1B92D63DE80090688B9E /* TPBlackjackPush.swift */,
+			);
+			path = payouts;
 			sourceTree = "<group>";
 		};
 		D8AC1660A807A1516EB09A90 /* stand */ = {
@@ -288,6 +301,7 @@
 				D8AC10746DE5E8B61D523E33 /* MockGame.swift */,
 				D8AC1314187BC9746FDD337B /* TInitialThrowing.swift */,
 				3415D15E5078F1BB454FBD69 /* TBJGameCase.swift */,
+				D8AC16428A09DF7E23208743 /* payouts */,
 			);
 			path = CardsBaseTests;
 			sourceTree = "<group>";
@@ -486,6 +500,8 @@
 				D8AC1F3A11F093745ECD6152 /* TInitialThrowing.swift in Sources */,
 				3415DE63F7E0276E541CE672 /* TBlackjack.swift in Sources */,
 				3415DFF2CC8A62BA49A21272 /* TBJGameCase.swift in Sources */,
+				D8AC1EDD9117D2A176371971 /* TPBlackjackWin.swift in Sources */,
+				D8AC1966F0CFD7643D5AC05D /* TPBlackjackPush.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

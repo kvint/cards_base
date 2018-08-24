@@ -1,6 +1,12 @@
 import Foundation
 
 class Hand: BJHand, Hashable {
+    func gotCharlie() -> Bool {
+        return false
+    }
+    
+    
+    var payedOut: Bool = false
     
     var cards: [Card] = []
     private(set) var hashValue: Int = 0
@@ -30,6 +36,9 @@ class Hand: BJHand, Hashable {
 
     func gotBusted() -> Bool {
         return self.getScore().hard >= BlackJackConstants.MAX_SCORE
+    }
+    func gotBlackjack() -> Bool {
+        return self.cards.count == 2 && self.getScore().hard == BlackJackConstants.MAX_SCORE
     }
     func getScore() -> (hard: Int, soft: Int?) {
         var score = 0
