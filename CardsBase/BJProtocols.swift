@@ -15,7 +15,7 @@ public protocol UserModel {
     var balance: Double {get}
 }
 public protocol BJGame {
-    weak var delegate: GameDelegate? {get set}
+    var delegate: GameDelegate? {get set}
     var live: Bool {get}
 
     func bet(index: Int, stake: Double) throws

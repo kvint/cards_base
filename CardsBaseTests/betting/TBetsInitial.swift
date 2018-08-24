@@ -48,13 +48,14 @@ class TBetsInitial: TBJGameCase {
         XCTAssertThrowsError(try self.game.bet(handId: "1", stake: -20), "Negative stake case") { (error) -> Void in
             XCTAssertEqual(error as? BJError, BJError.betError)
         }
-
+        XCTAssertEqual(self.game.totalStake, 150)
         XCTAssertNoThrow(try self.game.bet(handId: "1", stake: -10), "Zero stake case")
 
-//        XCTAssertEqual(firstHand?.stake, 10)
         XCTAssertEqual(self.game.model.getHand(id: "2")?.stake, 20)
         XCTAssertEqual(self.game.model.getHand(id: "3")?.stake, 30)
         XCTAssertEqual(self.game.model.getHand(id: "4")?.stake, 40)
         XCTAssertEqual(self.game.model.getHand(id: "5")?.stake, 50)
+
+        XCTAssertEqual(self.game.totalStake, 140)
     }
 }
