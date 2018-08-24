@@ -7,27 +7,21 @@ import XCTest
 
 class TBlackjack: TBJGameCase {
 
-    override func setUp() {
-        super.setUp()
-
+    func testSingleHandBlackjack() {
         fillDeck([
             // Dealer
             Card(Rank.Queen), Card(Rank.Queen),
 
             //Hands
-            Card(Rank.c10), Card(Rank.Ace),
-            Card(Rank.King), Card(Rank.Ace),
-            Card(Rank.Ace), Card(Rank.Jack),
-            Card(Rank.Queen), Card(Rank.Ace),
-            Card(Rank.Ace), Card(Rank.Ace),
+            Card(Rank.c10), Card(Rank.Ace)
         ]);
 
-        try! self.game.bet(index: 1, stake: 10)
-        try! self.game.bet(index: 2, stake: 10)
-        try! self.game.bet(index: 3, stake: 10)
-        try! self.game.bet(index: 5, stake: 10)
+        try! game.bet(handId: "0", stake: 20)
+        try! game.deal()
 
-        try! self.game.deal()
+        XCTAssertFalse(game.live, "Game is done")
     }
+    func testPayouts() {
 
+    }
 }

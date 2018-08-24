@@ -23,9 +23,11 @@ class TGameFlow: XCTestCase {
     }
     func testNotLiveAfterRoundEnds() {
         try! game.bet(index: 0, stake: 10)
+
         try! game.deal()
-        XCTAssert(game.live)
+        XCTAssertTrue(game.live)
+
         try! game.stand()
-        XCTAssert(!game.live)
+        XCTAssertFalse(game.live)
     }
 }

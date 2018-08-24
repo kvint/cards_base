@@ -12,7 +12,21 @@ class UserHand: Hand, BJUserHand {
     
     var isDone: Bool = false
     var stake: Double = 0
+    var win: Double = 0
+    var doubleBet: Double = 0
+    var doubleWin: Double = 0
     var playing: Bool = false
+
+    var totalBet: Double {
+        get {
+            return stake + doubleBet
+        }
+    }
+    var totalWin: Double {
+        get {
+            return win + doubleWin
+        }
+    }
 
     func getActions() -> Set<BJAction> {
         guard self.cards.count > 1 else {

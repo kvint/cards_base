@@ -180,7 +180,8 @@ public class Game: BJGame {
         guard var hand = self.model.activeHand else {
             throw BJError.handError
         }
-        hand.stake += hand.stake
+        let curStake = hand.stake
+        hand.stake = curStake * 2
         try self.dealCardToUser(hand: &hand)
         hand.isDone = true
 

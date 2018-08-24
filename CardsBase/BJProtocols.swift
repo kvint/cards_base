@@ -58,8 +58,13 @@ public protocol BJHand {
 
 public protocol BJUserHand: BJHand {
     var stake: Double {get set}
+    var win: Double {get set}
+    var doubleBet: Double {get set}
+    var doubleWin: Double {get set}
     var playing: Bool {get set}
     var isDone: Bool {get set}
+    var totalBet: Double {get}
+    var totalWin: Double {get}
 
     func split() -> BJUserHand?
     func getActions() -> Set<BJAction>

@@ -276,6 +276,9 @@
 		EA79E3772041D0AE00BA6E64 /* CardsBaseTests */ = {
 			isa = PBXGroup;
 			children = (
+				3415D43C8C5A569C1CEAAA88 /* blackjack */,
+				D8AC1EAA64D132CA255F170F /* actions */,
+				3415D760EAF05B05421BA1B4 /* betting */,
 				EA5AB260205CD17D004408A5 /* gameFlow */,
 				EA79E3952041D14400BA6E64 /* TCards.swift */,
 				EA79E3942041D14400BA6E64 /* THand.swift */,
@@ -283,10 +286,7 @@
 				EA79E37A2041D0AE00BA6E64 /* Info.plist */,
 				D8AC17FFBC1E90C4C7BBC7B3 /* TDeal.swift */,
 				D8AC10746DE5E8B61D523E33 /* MockGame.swift */,
-				D8AC1EAA64D132CA255F170F /* actions */,
-				3415D760EAF05B05421BA1B4 /* betting */,
 				D8AC1314187BC9746FDD337B /* TInitialThrowing.swift */,
-				3415D43C8C5A569C1CEAAA88 /* blackjack */,
 				3415D15E5078F1BB454FBD69 /* TBJGameCase.swift */,
 			);
 			path = CardsBaseTests;
