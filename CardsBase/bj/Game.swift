@@ -202,7 +202,8 @@ public class Game: BJGame {
 
         var bjHand = hand as BJHand
         self.delegate?.didHandUpdate(&bjHand)
-
+        self.delegate?.betOnHand(handId: bjHand.id)
+        
         self.nextStep()
     }
 
