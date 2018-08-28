@@ -54,7 +54,8 @@ public enum Rank: Int, CustomStringConvertible {
 public struct Card: CustomStringConvertible, Hashable {
     public var suit: Suit
     public var rank: Rank
-
+    public var hidden: Bool = false
+    
     public var hashValue: Int = 0
 
     public init(_ rank: Rank, _ suit: Suit = Suit.Clubs) {

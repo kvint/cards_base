@@ -64,10 +64,11 @@ public class Game: BJGame {
         try self.dealCardTo(hand: &uhnd)
     }
 
-    internal func dealCardTo(hand: inout BJHand) throws -> Void {
-        guard let card = model.deck.popLast() else {
+    internal func dealCardTo(hand: inout BJHand, hidden: Bool = false) throws -> Void {
+        guard var card = model.deck.popLast() else {
             throw BJError.noCardsLeft
         }
+        card.hidden = hidden
         hand.cards.append(card)
         self.delegate?.didDealCard(card, &hand)
     }
@@ -155,8 +156,8 @@ public class Game: BJGame {
         var dealer = self.model.dealer as BJHand
         switch dealingType {
         case .Linear:
-            for _ in 1...2 {
-                try self.dealCardTo(hand: &dealer) // TODO: rethrow
+            for i in 1...2 {
+                try self.dealCardTo(hand: &dealer, hidden: i == 1) // TODO: rethrow
             }
             try self.model.hands.forEach {
                 if var hand = $0 {
@@ -170,7 +171,7 @@ public class Game: BJGame {
         break;
         case .Classic:
             for i in 1...2 {
-                try self.dealCardTo(hand: &dealer) // TODO: rethrow
+                try self.dealCardTo(hand: &dealer, hidden: i == 1) // TODO: rethrow
                 if i == 2 {
                     self.delegate?.didHandUpdate(&dealer)
                 }
