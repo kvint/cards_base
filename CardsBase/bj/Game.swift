@@ -34,6 +34,11 @@ public class Game: BJGame {
 
         self.model.setActiveHand(index: self.model.getNextHandIndex())
         self.delegate?.roundStarted()
+        
+        if let activeHand = self.model.activeHand  {
+            var bjHand = activeHand as BJHand
+            self.delegate?.didHandChange(&bjHand)
+        }
         self.nextStep()
     }
 
