@@ -49,6 +49,9 @@ public class Game: BJGame {
         var dealer = self.model.dealer as BJHand
         self.delegate?.didHandChange(&dealer)
         
+        var dealerFirstCard = dealer.cards[0]
+        dealerFirstCard.hidden = false
+        self.delegate?.revealDelaerCard(dealerFirstCard)
         while dealer.getFinalScore() < BlackJackConstants.MAX_SCORE {
             do {
                 try self.dealCardTo(hand: &dealer)

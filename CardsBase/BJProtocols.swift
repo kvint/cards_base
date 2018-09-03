@@ -79,6 +79,7 @@ public protocol BJDealerHand: BJHand {
 
 public protocol GameDelegate: class {
     func didHandChange(_ hand: inout BJHand)
+    func revealDelaerCard(_ card: Card)
     func roundStarted()
     func roundEnded()
 
