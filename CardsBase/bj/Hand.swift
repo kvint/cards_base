@@ -35,7 +35,7 @@ class Hand: BJHand, Hashable {
 
 
     func gotBusted() -> Bool {
-        return self.getScore().hard >= BlackJackConstants.MAX_SCORE
+        return self.getScore().hard > BlackJackConstants.MAX_SCORE
     }
     func gotBlackjack() -> Bool {
         return self.cards.count == 2 && self.getScore().hard == BlackJackConstants.MAX_SCORE

@@ -31,6 +31,14 @@ func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
 }
 
 class GameInterface: GameDelegate {
+    func revealDealerCard(_ card: Card) {
+        //
+    }
+    
+    func betOnHand(handId: String) {
+        //
+    }
+    
 
     func didHandChange(_ hand: inout BJHand) {
         printResults("You:", hand: &hand, wait: 400)

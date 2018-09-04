@@ -51,7 +51,7 @@ public class Game: BJGame {
         
         var dealerFirstCard = dealer.cards[0]
         dealerFirstCard.hidden = false
-        self.delegate?.revealDelaerCard(dealerFirstCard)
+        self.delegate?.revealDealerCard(dealerFirstCard)
         while dealer.getFinalScore() < BlackJackConstants.MAX_SCORE {
             do {
                 try self.dealCardTo(hand: &dealer)
@@ -62,6 +62,16 @@ public class Game: BJGame {
                 fatalError("Unhandled error during dealing to dealer")
             }
         }
+
+        self.model.hands.forEach { (h) in
+            if var hand = h {
+                if hand.playing {
+                    hand.isDone = true
+                    self.payoutHand(&hand)
+                }
+            }
+        }
+
         self.delegate?.roundEnded()
     }
 
@@ -113,17 +123,25 @@ public class Game: BJGame {
         guard !hand.payedOut else {
             return
         }
-        
+        let handScore = hand.getFinalScore()
+        let dealerScore = self.model.dealer.getFinalScore()
+        let stake = hand.stake
+
         if hand.gotBusted() {
             hand.playing = false
             hand.isDone = true
             hand.payedOut = true
         }
         if hand.gotBlackjack() {
-            let stake = hand.stake
             hand.win = stake * 2.5
             hand.isDone = true
             hand.playing = false
+            hand.payedOut = true
+        }
+        if hand.isDone && !hand.payedOut {
+            if handScore > dealerScore {
+                hand.win = stake * 2
+            }
             hand.payedOut = true
         }
     }
@@ -142,7 +160,9 @@ public class Game: BJGame {
         guard finalStake >= 0 else {
             throw BJError.betError
         }
-        hand!.stake = finalStake
+        hand?.playing = true
+        hand?.isDone = false
+        hand?.stake = finalStake
         self.delegate?.betOnHand(handId: handId)
     }
 
@@ -169,10 +189,10 @@ public class Game: BJGame {
             }
             try self.model.hands.forEach {
                 if var hand = $0 {
-                    for _ in 1...2 {
-                        hand.isDone = false
-                        hand.playing = true
-                        try self.dealCardToUser(hand: &hand)
+                    if hand.playing {
+                        for _ in 1...2 {
+                            try self.dealCardToUser(hand: &hand)
+                        }
                     }
                 }
             }
@@ -185,13 +205,12 @@ public class Game: BJGame {
                 }
                 try self.model.hands.forEach {
                     if var hand = $0 {
-                        hand.isDone = false
-                        hand.playing = true
-                        try self.dealCardToUser(hand: &hand)
-
-                        if i == 2 {
-                            var bjHand = hand as BJHand
-                            self.delegate?.didHandUpdate(&bjHand)
+                        if hand.playing {
+                            try self.dealCardToUser(hand: &hand)
+                            if i == 2 {
+                                var bjHand = hand as BJHand
+                                self.delegate?.didHandUpdate(&bjHand)
+                            }
                         }
                     }
                 }

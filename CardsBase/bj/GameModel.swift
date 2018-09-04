@@ -55,7 +55,7 @@ public class GameModel: BJModel {
     public func getNextHandIndex() -> Int? {
 
         guard let index = self.activeHandIndex else {
-            return self.hands.index(where: { $0 != nil })
+            return self.hands.index(where: { $0 != nil && ($0?.playing)! && !($0?.isDone)! })
         }
 
         for i in index..<self.hands.count {

@@ -9,7 +9,7 @@
 import XCTest
 @testable import CardsBase
 
-class TPBlackjackPush: XCTestCase {
+class TPWin: XCTestCase {
 
     let game = MockGame()
 
@@ -17,17 +17,22 @@ class TPBlackjackPush: XCTestCase {
         super.setUp()
 
         self.game.setUp(deck: [
-            Card(Rank.Jack),
-            Card(Rank.Ace),
+            Card(Rank.c10),
+            Card(Rank.King),
 
-            Card(Rank.Ace),
-            Card(Rank.Jack)
+            Card(Rank.c5),
+            Card(Rank.c5),
+            Card(Rank.c5),
+            Card(Rank.c6)
         ])
 
         try! self.game.bet(index: 1, stake: 10)
         try! self.game.deal()
     }
     func testPayout() {
-        XCTAssertEqual(self.game.model.hands[0]!.win, 25)
+        try! self.game.hit()
+        try! self.game.hit()
+        try! self.game.stand()
+        XCTAssertEqual(self.game.model.hands[0]!.win, 20)
     }
 }
