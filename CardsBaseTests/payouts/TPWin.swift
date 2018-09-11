@@ -32,7 +32,7 @@ class TPWin: XCTestCase {
     func testPayout() {
         try! self.game.hit()
         try! self.game.hit()
-        try! self.game.stand()
+        try? self.game.stand()
         XCTAssertEqual(self.game.model.hands[0]!.win, 20)
     }
 }

@@ -13,21 +13,38 @@ class TGameFlow: XCTestCase {
     
     var game: MockGame = MockGame()
     
-    override func setUp() {
+    func testNotLiveAfterRoundEnds() {
+        
         game.setUp(deck: [
             Card(Rank.Ace), Card(Rank.Ace),
             Card(Rank.Ace), Card(Rank.Ace),
             Card(Rank.Ace), Card(Rank.Ace),
             Card(Rank.c10), Card(Rank.c10)
         ]);
-    }
-    func testNotLiveAfterRoundEnds() {
+        
         try! game.bet(index: 0, stake: 10)
 
         try! game.deal()
         XCTAssertTrue(game.live)
 
         try! game.stand()
+        XCTAssertFalse(game.live)
+    }
+    func testNotLiveAfter21() {
+        
+        game.setUp(deck: [
+            Card(Rank.c2), Card(Rank.c2),
+            Card(Rank.c8), Card(Rank.c3),
+            Card(Rank.c10), Card(Rank.Ace),
+            Card(Rank.c10), Card(Rank.c10)
+            ]);
+        
+        try! game.bet(index: 0, stake: 10)
+        
+        try! game.deal()
+        XCTAssertTrue(game.live)
+        
+        try! game.hit()
         XCTAssertFalse(game.live)
     }
 }

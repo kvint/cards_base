@@ -26,7 +26,7 @@ class Hand: BJHand, Hashable {
         guard let softScore = score.soft else {
             return score.hard
         }
-        guard score.hard < BlackJackConstants.MAX_SCORE else {
+        guard score.hard <= BlackJackConstants.MAX_SCORE else {
             return softScore
         }
 

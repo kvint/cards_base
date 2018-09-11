@@ -131,14 +131,17 @@ public class Game: BJGame {
             hand.playing = false
             hand.isDone = true
             hand.payedOut = true
+            hand.win = 0
         }
-        if hand.gotBlackjack() {
-            hand.win = stake * 2.5
+        if handScore == BlackJackConstants.MAX_SCORE {
             hand.isDone = true
-            hand.playing = false
-            hand.payedOut = true
+            if hand.gotBlackjack() {
+                hand.win = stake * 2.5
+                hand.payedOut = true
+                hand.playing = false
+            }
         }
-        if hand.isDone && !hand.payedOut {
+        if !live && hand.isDone && !hand.payedOut {
             if handScore > dealerScore {
                 hand.win = stake * 2
             }
