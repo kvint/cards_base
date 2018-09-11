@@ -12,4 +12,12 @@ class Dealer: Hand, BJDealerHand {
     convenience init() {
         self.init("dealer")
     }
+    var facedCard: Card? {
+        get {
+            if self.cards.count >= 2 {
+                return cards[1]
+            }
+            return nil
+        }
+    }
 }

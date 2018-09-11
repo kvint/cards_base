@@ -50,7 +50,8 @@ public class Game: BJGame {
         self.delegate?.didHandChange(&dealer)
         
         var dealerFirstCard = dealer.cards[0]
-        dealerFirstCard.hidden = false
+        dealer.cards[0].hidden = false
+        
         self.delegate?.revealDealerCard(dealerFirstCard)
         while dealer.getFinalScore() < BlackJackConstants.DEALER_STAYS {
             do {
@@ -134,16 +135,24 @@ public class Game: BJGame {
             hand.win = 0
         }
         if handScore == BlackJackConstants.MAX_SCORE {
-            hand.isDone = true
             if hand.gotBlackjack() {
-                hand.win = stake * 2.5
-                hand.payedOut = true
-                hand.playing = false
+                if self.model.dealer.facedCard?.rank == Rank.Ace || self.model.dealer.facedCard?.score.hard == 10 {
+                    hand.win = stake // possible push case
+                } else {
+                    hand.win = stake * 2.5
+                    hand.payedOut = true
+                    hand.playing = false
+                }
             }
+            hand.isDone = true
         }
         if !live && hand.isDone && !hand.payedOut {
             if handScore > dealerScore {
                 hand.win = stake * 2
+            } else if handScore == dealerScore {
+                hand.win = stake // push
+            } else {
+                hand.win = 0
             }
             hand.payedOut = true
         }

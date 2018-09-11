@@ -75,6 +75,7 @@ public protocol BJUserHand: BJHand {
 
 public protocol BJDealerHand: BJHand {
     var insuranceAvailable: Bool {get}
+    var facedCard: Card? {get}
 }
 
 public protocol GameDelegate: class {

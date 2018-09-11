@@ -28,6 +28,6 @@ class TPBlackjackPush: XCTestCase {
         try! self.game.deal()
     }
     func testPayout() {
-        XCTAssertEqual(self.game.model.hands[0]!.win, 25)
+        XCTAssertEqual(self.game.model.hands[0]!.win, 10)
     }
 }

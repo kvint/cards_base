@@ -45,6 +45,9 @@ class Hand: BJHand, Hashable {
         var aces = 0
 
         for card in self.cards {
+            if card.hidden {
+                continue
+            }
             if card.rank == Rank.Ace {
                 aces += 1
             } else {
