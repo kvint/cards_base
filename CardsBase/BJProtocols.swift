@@ -79,13 +79,17 @@ public protocol BJDealerHand: BJHand {
 }
 
 public protocol GameDelegate: class {
-    func didHandChange(_ hand: inout BJHand)
+    
     func revealDealerCard(_ card: Card)
     func roundStarted()
     func roundEnded()
-
-    func didHandUpdate(_ hand: inout BJHand)
-    func didDealCard(_ card: Card, _ hand: inout BJHand)
-    func didHandDone(_ hand: inout BJUserHand)
-    func betOnHand(handId: String) -> Void
+    
+    func onChanged(toHand: inout BJHand)
+    func onUpdate(hand: inout BJHand)
+    func onDealCard(toHand: inout BJHand, card: Card)
+    func onDone(hand: inout BJUserHand)
+    func onBet(toHand: inout BJUserHand) -> Void
+    func onPayout(hand: inout BJUserHand) -> Void
+    func onBlackjack(atHand: inout BJUserHand) -> Void
+    func onBust(atHand: inout BJUserHand) -> Void
 }

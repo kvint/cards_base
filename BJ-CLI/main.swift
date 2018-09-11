@@ -31,18 +31,50 @@ func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
 }
 
 class GameInterface: GameDelegate {
+    func onChanged(toHand: inout BJHand) {
+        printResults("You:", hand: &toHand, wait: 400)
+    }
+    
+    func onUpdate(hand: inout BJHand) {
+        printResults("", hand: &hand, wait: 200)
+    }
+    
+    func onDealCard(toHand: inout BJHand, card: Card) {
+        //msg.push("\(hand.id) --> \(card)", 100)
+        guard toHand.cards.count > 2 else {
+            return
+        }
+        msg.push("\(card)", 400)
+    }
+    
+    func onDone(hand: inout BJUserHand) {
+        var bjHand = hand as BJHand
+        if hand.cards.count <= 2 {
+            msg.push(getResults(hand: &bjHand))
+        }
+        msg.push(SEP2)
+    }
+    
+    func onBet(toHand: inout BJUserHand) {
+        
+    }
+    
+    func onPayout(hand: inout BJUserHand) {
+        
+    }
+    
+    func onBlackjack(atHand: inout BJUserHand) {
+        
+    }
+    
+    func onBust(atHand: inout BJUserHand) {
+        
+    }
+    
     func revealDealerCard(_ card: Card) {
         //
     }
     
-    func betOnHand(handId: String) {
-        //
-    }
-    
-
-    func didHandChange(_ hand: inout BJHand) {
-        printResults("You:", hand: &hand, wait: 400)
-    }
 
     func roundStarted() {
         msg.push()
@@ -69,26 +101,6 @@ class GameInterface: GameDelegate {
         msg.push()
         msg.push()
         msg.push(SEP1)
-    }
-
-    func didHandUpdate(_ hand: inout BJHand) {
-        printResults("", hand: &hand, wait: 200)
-    }
-
-    func didDealCard(_ card: Card, _ hand: inout BJHand) {
-        //msg.push("\(hand.id) --> \(card)", 100)
-        guard hand.cards.count > 2 else {
-            return
-        }
-        msg.push("\(card)", 400)
-    }
-
-    func didHandDone(_ hand: inout BJUserHand) {
-        var bjHand = hand as BJHand
-        if hand.cards.count <= 2 {
-            msg.push(getResults(hand: &bjHand))
-        }
-        msg.push(SEP2)
     }
 }
 
