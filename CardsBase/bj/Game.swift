@@ -52,7 +52,7 @@ public class Game: BJGame {
         var dealerFirstCard = dealer.cards[0]
         dealerFirstCard.hidden = false
         self.delegate?.revealDealerCard(dealerFirstCard)
-        while dealer.getFinalScore() < BlackJackConstants.MAX_SCORE {
+        while dealer.getFinalScore() < BlackJackConstants.DEALER_STAYS {
             do {
                 try self.dealCardTo(hand: &dealer)
             } catch BJError.noCardsLeft {

@@ -13,26 +13,42 @@ class TPWin: XCTestCase {
 
     let game = MockGame()
 
-    override func setUp() {
-        super.setUp()
-
+    func testPayout() {
+        
         self.game.setUp(deck: [
             Card(Rank.c10),
             Card(Rank.King),
-
+            
+            Card(Rank.c5),
+            Card(Rank.c5),
+            Card(Rank.c5),
+            Card(Rank.c6)
+            ])
+        
+        try! self.game.bet(index: 1, stake: 10)
+        try! self.game.deal()
+        
+        try! self.game.hit()
+        try! self.game.hit()
+        try? self.game.stand()
+        XCTAssertEqual(self.game.model.hands[0]!.win, 20)
+    }
+    func testDealerTakes() {
+        
+        self.game.setUp(deck: [
+            Card(Rank.c10),
+            Card(Rank.King),
+            
             Card(Rank.c5),
             Card(Rank.c5),
             Card(Rank.c5),
             Card(Rank.c6)
         ])
-
+        
         try! self.game.bet(index: 1, stake: 10)
         try! self.game.deal()
-    }
-    func testPayout() {
-        try! self.game.hit()
-        try! self.game.hit()
         try? self.game.stand()
-        XCTAssertEqual(self.game.model.hands[0]!.win, 20)
+        
+        XCTAssertEqual(self.game.model.dealer.cards.count, 2)
     }
 }
