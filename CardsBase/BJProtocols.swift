@@ -83,12 +83,9 @@ public protocol GameDelegate: class {
     func roundStarted()
     func roundEnded()
     
-    func onChanged(toHand: inout BJHand)
-    func onUpdate(hand: inout BJHand)
-    func onDealCard(toHand: inout BJHand, card: Card)
+    func focusChanged(to: inout BJHand)
+    func updated(hand: inout BJHand)
+    func cardDealt(toHand: inout BJHand, card: Card)
     func onDone(hand: inout BJUserHand)
-    func onBet(toHand: inout BJUserHand) -> Void
-    func onPayout(hand: inout BJUserHand) -> Void
-    func onBlackjack(atHand: inout BJUserHand) -> Void
-    func onBust(atHand: inout BJUserHand) -> Void
+    func onBet(onHand: inout BJUserHand, regularBet: Bool) -> Void
 }

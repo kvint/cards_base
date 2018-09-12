@@ -31,8 +31,8 @@ func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
 }
 
 class GameInterface: GameDelegate {
-    func onChanged(toHand: inout BJHand) {
-        printResults("You:", hand: &toHand, wait: 400)
+    func onFocusChanged(to: inout BJHand) {
+        printResults("You:", hand: &to, wait: 400)
     }
     
     func onUpdate(hand: inout BJHand) {
@@ -55,19 +55,7 @@ class GameInterface: GameDelegate {
         msg.push(SEP2)
     }
     
-    func onBet(toHand: inout BJUserHand) {
-        
-    }
-    
-    func onPayout(hand: inout BJUserHand) {
-        
-    }
-    
-    func onBlackjack(atHand: inout BJUserHand) {
-        
-    }
-    
-    func onBust(atHand: inout BJUserHand) {
+    func onBet(onHand: inout BJUserHand) {
         
     }
     

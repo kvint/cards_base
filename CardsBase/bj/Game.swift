@@ -49,7 +49,7 @@ public class Game: BJGame {
         self.model.setActiveHand(index: nil)
 
         var dealer = self.model.dealer as BJHand
-        self.delegate?.onChanged(toHand: &dealer)
+        self.delegate?.focusChanged(to: &dealer)
         
         let dealerFirstCard = dealer.cards[0]
         dealer.cards[0].hidden = false
@@ -90,7 +90,7 @@ public class Game: BJGame {
         }
         card.hidden = hidden
         hand.cards.append(card)
-        self.delegate?.onDealCard(toHand: &hand, card: card)
+        self.delegate?.cardDealt(toHand: &hand, card: card)
     }
 
     public func pullCard() -> Card? {
@@ -120,7 +120,7 @@ public class Game: BJGame {
             guard aHand.getActions().count > 0 else {
                 return self.nextStep()
             }
-            self.delegate?.onChanged(toHand: &bjHand)
+            self.delegate?.focusChanged(to: &bjHand)
         }
     }
     public func payoutHand(_ hand: inout BJUserHand) -> Void {
@@ -135,7 +135,6 @@ public class Game: BJGame {
             hand.isDone = true
             hand.payedOut = true
             hand.win = 0
-            self.delegate?.onBust(atHand: &hand)
         }
         if handScore == BlackJackConstants.MAX_SCORE {
             if hand.gotBlackjack() {
@@ -146,12 +145,11 @@ public class Game: BJGame {
                     hand.payedOut = true
                     hand.playing = false
                 }
-                self.delegate?.onBlackjack(atHand: &hand)
             }
             hand.isDone = true
         }
-        if hand.payedOut {
-            self.delegate?.onPayout(hand: &hand)
+        if hand.isDone {
+            self.delegate?.onDone(hand: &hand)
         }
     }
     public func payoutHandFinal(_ hand: inout BJUserHand) -> Void {
@@ -169,7 +167,7 @@ public class Game: BJGame {
                 hand.win = 0
             }
             hand.payedOut = true
-            self.delegate?.onPayout(hand: &hand)
+            self.delegate?.onDone(hand: &hand)
         }
     }
         
@@ -191,7 +189,7 @@ public class Game: BJGame {
         hand!.playing = true
         hand!.isDone = false
         hand!.stake = finalStake
-        self.delegate?.onBet(toHand: &hand!)
+        self.delegate?.onBet(onHand: &hand!, regularBet: true)
     }
 
     public func deal() throws {
@@ -229,7 +227,7 @@ public class Game: BJGame {
             for i in 1...2 {
                 try self.dealCardTo(hand: &dealer, hidden: i == 1) // TODO: rethrow
                 if i == 2 {
-                    self.delegate?.onUpdate(hand: &dealer)
+                    self.delegate?.updated(hand: &dealer)
                 }
                 try self.model.hands.forEach {
                     if var hand = $0 {
@@ -237,7 +235,7 @@ public class Game: BJGame {
                             try self.dealCardToUser(hand: &hand)
                             if i == 2 {
                                 var bjHand = hand as BJHand
-                                self.delegate?.onUpdate(hand: &bjHand)
+                                self.delegate?.updated(hand: &bjHand)
                             }
                         }
                     }
@@ -252,14 +250,15 @@ public class Game: BJGame {
             throw BJError.handError
         }
         let curStake = hand.stake
+        hand.doubleBet = hand.stake
         hand.stake = curStake * 2
         try self.dealCardToUser(hand: &hand)
         hand.isDone = true
 
         var bjHand = hand as BJHand
-        self.delegate?.onUpdate(hand: &bjHand)
+        self.delegate?.updated(hand: &bjHand)
         var bjUserHand = hand as BJUserHand
-        self.delegate?.onBet(toHand: &bjUserHand)
+        self.delegate?.onBet(onHand: &bjUserHand, regularBet: false)
         
         self.nextStep()
     }
@@ -304,7 +303,7 @@ public class Game: BJGame {
         try self.dealCardToUser(hand: &hand)
 
         var bjHand = hand as BJHand
-        self.delegate?.onUpdate(hand: &bjHand)
+        self.delegate?.updated(hand: &bjHand)
     }
 
     public func stand() throws {
@@ -312,7 +311,6 @@ public class Game: BJGame {
             throw BJError.handError
         }
         hand.isDone = true;
-        print("do next step")
         self.nextStep()
     }
     public func getActions() -> Set<BJAction> {
