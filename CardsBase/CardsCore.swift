@@ -55,15 +55,16 @@ public struct Card: CustomStringConvertible, Hashable {
     public var suit: Suit
     public var rank: Rank
     public var hidden: Bool = false
-    
-    public var hashValue: Int = 0
 
     public init(_ rank: Rank, _ suit: Suit = Suit.Clubs) {
         self.rank = rank;
         self.suit = suit;
-        self.hashValue = suit.hashValue | (rank.hashValue << 16)
     }
-
+    public var hashValue: Int {
+        get {
+            return suit.hashValue | (rank.hashValue << 16) | self.hidden.hashValue << 17
+        }
+    }
     public static func ==(lhs: Card, rhs: Card) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }

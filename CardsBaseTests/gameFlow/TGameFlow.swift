@@ -25,7 +25,7 @@ class TGameFlow: XCTestCase {
         try! game.bet(index: 0, stake: 10)
 
         try! game.deal()
-        XCTAssertTrue(game.live)
+        XCTAssertTrue(game.state == .Idle)
 
         try! game.stand()
         XCTAssertFalse(game.live)
@@ -42,9 +42,9 @@ class TGameFlow: XCTestCase {
         try! game.bet(index: 0, stake: 10)
         
         try! game.deal()
-        XCTAssertTrue(game.live)
+        XCTAssertTrue(game.state == .Idle)
         
         try! game.hit()
-        XCTAssertFalse(game.live)
+        XCTAssertTrue(game.state == .Betting)
     }
 }

@@ -4,6 +4,9 @@
 //
 import Foundation
 
+public enum BJTableState {
+    case Betting, Idle, Revealing, Payout
+}
 public class Game: BJGame {
 
     internal enum Dealing {
@@ -13,6 +16,7 @@ public class Game: BJGame {
 
     public weak var delegate: GameDelegate? = nil
     public var model: GameModel = GameModel()
+    public var state: BJTableState = .Betting
     public var live: Bool = false //TODO: make private
 
     public init() {}
@@ -30,8 +34,7 @@ public class Game: BJGame {
     }
     
     internal func startRound() {
-        self.live = true
-
+        self.state = .Idle
         self.model.setActiveHand(index: self.model.getNextHandIndex())
         self.delegate?.roundStarted()
         
@@ -43,13 +46,13 @@ public class Game: BJGame {
     }
 
     internal func endRound() {
-        self.live = false
+        self.state = .Revealing
         self.model.setActiveHand(index: nil)
 
         var dealer = self.model.dealer as BJHand
         self.delegate?.onChanged(toHand: &dealer)
         
-        var dealerFirstCard = dealer.cards[0]
+        let dealerFirstCard = dealer.cards[0]
         dealer.cards[0].hidden = false
         
         self.delegate?.revealDealerCard(dealerFirstCard)
@@ -63,17 +66,16 @@ public class Game: BJGame {
                 fatalError("Unhandled error during dealing to dealer")
             }
         }
-
+        self.state = .Payout
         self.model.hands.forEach { (h) in
             if var hand = h {
                 if hand.playing {
-                    hand.isDone = true
-                    self.payoutHand(&hand)
+                    self.payoutHandFinal(&hand)
                 }
             }
         }
-
         self.delegate?.roundEnded()
+        self.state = .Betting
     }
 
     internal func dealCardToUser(hand: inout BJUserHand) throws -> Void {
@@ -100,7 +102,9 @@ public class Game: BJGame {
         guard var hand = self.model.activeHand else {
             return self.endRound()
         }
+        self.state = .Payout
         self.payoutHand(&hand)
+        self.state = .Idle
         if hand.isDone {
             self.delegate?.onDone(hand: &hand)
 
@@ -125,7 +129,6 @@ public class Game: BJGame {
             return
         }
         let handScore = hand.getFinalScore()
-        let dealerScore = self.model.dealer.getFinalScore()
         let stake = hand.stake
 
         if hand.gotBusted() {
@@ -138,7 +141,7 @@ public class Game: BJGame {
         if handScore == BlackJackConstants.MAX_SCORE {
             if hand.gotBlackjack() {
                 if self.model.dealer.facedCard?.rank == Rank.Ace || self.model.dealer.facedCard?.score.hard == 10 {
-                    hand.win = stake // possible push case
+                    // push is possible
                 } else {
                     hand.win = stake * BlackJackConstants.BJ_PAYOUT_RATIO
                     hand.payedOut = true
@@ -148,7 +151,17 @@ public class Game: BJGame {
             }
             hand.isDone = true
         }
-        if !live && hand.isDone && !hand.payedOut {
+        if hand.payedOut {
+            self.delegate?.onPayout(hand: &hand)
+        }
+    }
+    public func payoutHandFinal(_ hand: inout BJUserHand) -> Void {
+        let handScore = hand.getFinalScore()
+        let dealerScore = self.model.dealer.getFinalScore()
+        let stake = hand.stake
+        hand.isDone = true
+        
+        if !hand.payedOut {
             if handScore > dealerScore {
                 hand.win = stake * BlackJackConstants.PAYOUT_RATIO
             } else if handScore == dealerScore {
@@ -157,11 +170,10 @@ public class Game: BJGame {
                 hand.win = 0
             }
             hand.payedOut = true
-        }
-        if hand.payedOut {
             self.delegate?.onPayout(hand: &hand)
         }
     }
+        
     public func bet(index: Int, stake: Double) throws -> Void {
         return try self.bet(handId: String(index), stake: stake)
     }
@@ -305,7 +317,7 @@ public class Game: BJGame {
         self.nextStep()
     }
     public func getActions() -> Set<BJAction> {
-        if !live && totalStake > 0 {
+        if state == .Betting && totalStake > 0 {
             return [BJAction.Deal]
         }
         
