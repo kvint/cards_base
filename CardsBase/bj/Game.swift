@@ -17,7 +17,6 @@ public class Game: BJGame {
     public weak var delegate: GameDelegate? = nil
     public var model: GameModel = GameModel()
     public var state: BJTableState = .Betting
-    public var live: Bool = false //TODO: make private
 
     public init() {}
     

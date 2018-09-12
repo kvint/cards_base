@@ -16,7 +16,6 @@ public protocol UserModel {
 }
 public protocol BJGame {
     var delegate: GameDelegate? {get set}
-    var live: Bool {get}
 
     func bet(index: Int, stake: Double) throws
     func bet(handId: String, stake: Double) throws

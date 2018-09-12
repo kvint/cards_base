@@ -122,10 +122,7 @@ func bet(handIndex: Int) -> Void {
     try! game.bet(index: handIndex, stake: 100);
 }
 func userAction() -> Void {
-    guard game.live else {
-        return
-    }
-
+    
     let actions = game.getActions()
 
     let actionsString = {() -> String in
