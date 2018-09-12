@@ -140,7 +140,7 @@ public class Game: BJGame {
                 if self.model.dealer.facedCard?.rank == Rank.Ace || self.model.dealer.facedCard?.score.hard == 10 {
                     hand.win = stake // possible push case
                 } else {
-                    hand.win = stake * 2.5
+                    hand.win = stake * BlackJackConstants.BJ_PAYOUT_RATIO
                     hand.payedOut = true
                     hand.playing = false
                 }
@@ -150,7 +150,7 @@ public class Game: BJGame {
         }
         if !live && hand.isDone && !hand.payedOut {
             if handScore > dealerScore {
-                hand.win = stake * 2
+                hand.win = stake * BlackJackConstants.PAYOUT_RATIO
             } else if handScore == dealerScore {
                 hand.win = stake // push
             } else {
