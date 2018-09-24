@@ -250,7 +250,7 @@ public class Game: BJGame {
             throw BJError.handError
         }
         let curStake = hand.stake
-        hand.doubleBet = hand.stake
+        hand.doubleBet = curStake
         hand.stake = curStake * 2
         try self.dealCardToUser(hand: &hand)
         hand.isDone = true

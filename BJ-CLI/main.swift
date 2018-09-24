@@ -31,20 +31,29 @@ func printResults(_ prefix: String, hand: inout BJHand, wait: Int? = nil) {
 }
 
 class GameInterface: GameDelegate {
-    func onFocusChanged(to: inout BJHand) {
+    func focusChanged(to: inout BJHand) {
         printResults("You:", hand: &to, wait: 400)
     }
     
-    func onUpdate(hand: inout BJHand) {
+    func updated(hand: inout BJHand) {
         printResults("", hand: &hand, wait: 200)
     }
     
-    func onDealCard(toHand: inout BJHand, card: Card) {
+    func cardDealt(toHand: inout BJHand, card: Card) {
         //msg.push("\(hand.id) --> \(card)", 100)
         guard toHand.cards.count > 2 else {
             return
         }
         msg.push("\(card)", 400)
+    }
+    
+    func onBet(onHand: inout BJUserHand, regularBet: Bool) {
+        
+    }
+    
+    
+    func onDealCard(toHand: inout BJHand, card: Card) {
+        
     }
     
     func onDone(hand: inout BJUserHand) {
@@ -55,12 +64,9 @@ class GameInterface: GameDelegate {
         msg.push(SEP2)
     }
     
-    func onBet(onHand: inout BJUserHand) {
-        
-    }
-    
     func revealDealerCard(_ card: Card) {
         //
+        msg.push("\(card)", 400)
     }
     
 
