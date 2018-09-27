@@ -66,8 +66,8 @@ public class Game: BJGame {
             }
         }
         self.state = .Payout
-        self.model.hands.forEach { (h) in
-            if var hand = h {
+        self.model.hands.forEach {
+            if var hand = $0 {
                 if hand.playing {
                     self.payoutHandFinal(&hand)
                 }
