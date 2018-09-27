@@ -229,6 +229,7 @@ public class Game: BJGame {
                 if i == 2 {
                     self.delegate?.updated(hand: &dealer)
                 }
+                self.model.hands.sort { $0!.id < $1!.id}
                 try self.model.hands.forEach {
                     if var hand = $0 {
                         if hand.playing {
