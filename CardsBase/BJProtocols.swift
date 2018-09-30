@@ -19,7 +19,6 @@ public protocol BJGame {
 
     func bet(index: Int, stake: Double) throws
     func bet(handId: String, stake: Double) throws
-    func pullCard() -> Card?
 
     func deal() throws
     func double() throws

@@ -12,13 +12,21 @@ public class Game: BJGame {
     internal enum Dealing {
         case Linear, Classic
     }
-    internal var dealingType: Dealing = .Classic
+    internal var dealingType: Dealing = .Linear
 
     public weak var delegate: GameDelegate? = nil
     public var model: GameModel = GameModel()
     public var state: BJTableState = .Betting
-
+    
+    private var cheatingCards: [Card] = []
+    private var dealerCheatingCards: [Card] = []
+    
     public init() {}
+    
+    public func applyCheat(_ c: [Card], _ d: [Card]) {
+        self.cheatingCards = c
+        self.dealerCheatingCards = d
+    }
     
     var totalStake: Double {
         get {
@@ -38,8 +46,8 @@ public class Game: BJGame {
         self.delegate?.roundStarted()
         
         if let activeHand = self.model.activeHand  {
-            var bjHand = activeHand as BJUserHand
-            self.delegate?.onDone(hand: &bjHand)
+            var bjHand = activeHand as BJHand
+            self.delegate?.focusChanged(to: &bjHand)
         }
         self.nextStep()
     }
@@ -85,16 +93,26 @@ public class Game: BJGame {
     }
 
     internal func dealCardTo(hand: inout BJHand, hidden: Bool = false) throws -> Void {
-        guard var card = model.deck.popLast() else {
-            throw BJError.noCardsLeft
+        
+        var card: Card!
+        
+        if hand is BJDealerHand {
+            if self.dealerCheatingCards.count > 0 {
+                card = self.dealerCheatingCards.popLast()
+            }
+        } else {
+            if self.cheatingCards.count > 0 {
+                card = self.cheatingCards.popLast()
+            }
+        }
+        
+        if card == nil {
+            card = model.deck.popLast()
+//          throw BJError.noCardsLeft
         }
         card.hidden = hidden
         hand.cards.append(card)
         self.delegate?.cardDealt(toHand: &hand, card: card)
-    }
-
-    public func pullCard() -> Card? {
-        return self.model.deck.popLast()
     }
 
     private func nextStep() -> Void {
@@ -208,6 +226,7 @@ public class Game: BJGame {
 
     internal func dealCards() throws {
         var dealer = self.model.dealer as BJHand
+        self.model.hands.sort { $0!.id < $1!.id}
         switch dealingType {
         case .Linear:
             for i in 1...2 {
@@ -229,7 +248,6 @@ public class Game: BJGame {
                 if i == 2 {
                     self.delegate?.updated(hand: &dealer)
                 }
-                self.model.hands.sort { $0!.id < $1!.id}
                 try self.model.hands.forEach {
                     if var hand = $0 {
                         if hand.playing {
