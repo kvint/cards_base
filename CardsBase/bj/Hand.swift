@@ -68,6 +68,7 @@ class Hand: BJHand, Hashable {
 
     func clear() {
         self.cards = []
+        self.payedOut = false
     }
 
     static func ==(lhs: Hand, rhs: Hand) -> Bool {

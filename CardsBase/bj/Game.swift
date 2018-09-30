@@ -82,6 +82,7 @@ public class Game: BJGame {
             }
         }
         self.delegate?.roundEnded()
+        self.model.clear()
         self.state = .Betting
     }
 
@@ -107,8 +108,10 @@ public class Game: BJGame {
         }
         
         if card == nil {
-            card = model.deck.popLast()
-//          throw BJError.noCardsLeft
+            guard let cardFromDeck = model.deck.popLast() else {
+                throw BJError.noCardsLeft
+            }
+            card = cardFromDeck
         }
         card.hidden = hidden
         hand.cards.append(card)

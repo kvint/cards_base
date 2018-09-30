@@ -26,6 +26,6 @@ class THitGotBust: TBJGameCase {
         try! self.game.hit()
         try! self.game.hit()
 
-        XCTAssertFalse(self.game.live, "Game round should be ended here")
+        XCTAssertFalse(self.game.state == .Idle, "Game round should be ended here")
     }
 }

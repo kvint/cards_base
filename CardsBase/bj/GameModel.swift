@@ -83,9 +83,9 @@ public class GameModel: BJModel {
 
     public func clear() {
         self.activeHandIndex = nil
-        self.deck = []
-        self.hands = []
-        self.handsDict = [:]
+        self.hands.forEach { (hand) in
+            hand?.clear()
+        }
         self.dealer.clear()
     }
 }

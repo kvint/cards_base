@@ -19,7 +19,7 @@ class TBlackjack: TBJGameCase {
         try! game.bet(handId: "0", stake: 20)
         try! game.deal()
 
-        XCTAssertFalse(game.live, "Game is done")
+        XCTAssertFalse(game.state == .Idle, "Game is done")
     }
     func testPayouts() {
 

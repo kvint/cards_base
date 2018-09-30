@@ -28,7 +28,7 @@ class TGameFlow: XCTestCase {
         XCTAssertTrue(game.state == .Idle)
 
         try! game.stand()
-        XCTAssertFalse(game.live)
+        XCTAssertFalse(game.state == .Idle)
     }
     func testNotLiveAfter21() {
         
