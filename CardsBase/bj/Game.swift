@@ -159,7 +159,7 @@ public class Game: BJGame {
         hand.isDone = true
         
         if !hand.payedOut {
-            if handScore > dealerScore {
+            if handScore > dealerScore || self.model.dealer.gotBusted() {
                 hand.win = stake * BlackJackConstants.PAYOUT_RATIO
             } else if handScore == dealerScore {
                 hand.win = stake // push
