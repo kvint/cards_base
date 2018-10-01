@@ -160,8 +160,9 @@ public class Game: BJGame {
         if handScore == BlackJackConstants.MAX_SCORE {
             if hand.gotBlackjack() {
                 if self.model.dealer.facedCard?.rank == Rank.Ace || self.model.dealer.facedCard?.score.hard == 10 {
-                    // push is possible
+                    // push is possible - no payout
                 } else {
+                    // payout bj now but not payout bj final
                     hand.win = stake * BlackJackConstants.BJ_PAYOUT_RATIO
                     hand.payedOut = true
                     hand.playing = false
@@ -177,7 +178,6 @@ public class Game: BJGame {
         let handScore = hand.getFinalScore()
         let dealerScore = self.model.dealer.getFinalScore()
         let stake = hand.stake
-        hand.isDone = true
         
         if !hand.payedOut {
             if handScore > dealerScore || self.model.dealer.gotBusted() {
@@ -190,6 +190,7 @@ public class Game: BJGame {
             hand.payedOut = true
             self.delegate?.onDone(hand: &hand)
         }
+        hand.isDone = true
     }
         
     public func bet(index: Int, stake: Double) throws -> Void {
@@ -245,6 +246,10 @@ public class Game: BJGame {
                         for _ in 1...2 {
                             try self.dealCardToUser(hand: &hand)
                         }
+                        var t_bjHand = hand as BJUserHand
+                        self.payoutHand(&t_bjHand)
+                        var h = hand as BJHand
+                        self.delegate?.updated(hand: &h)
                     }
                 }
             }
