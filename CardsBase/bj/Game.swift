@@ -12,7 +12,7 @@ public class Game: BJGame {
     internal enum Dealing {
         case Linear, Classic
     }
-    internal var dealingType: Dealing = .Linear
+    internal var dealingType: Dealing = .Classic
 
     public weak var delegate: GameDelegate? = nil
     public var model: GameModel = GameModel()
