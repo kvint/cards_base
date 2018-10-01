@@ -221,7 +221,11 @@ public class Game: BJGame {
         }
         // create deck
         self.model.createDeck()
-
+        if cheatingCards.count > 0 || dealerCheatingCards.count > 0 {
+            dealingType = .Linear
+        } else {
+            dealingType = .Classic
+        }
         //deal the cards
         try self.dealCards()
         self.startRound()
