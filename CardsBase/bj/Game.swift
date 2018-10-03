@@ -4,17 +4,16 @@
 //
 import Foundation
 
-public enum BJTableState {
-    case Betting, Idle, Revealing, Payout
-}
 public class Game: BJGame {
 
     internal enum Dealing {
         case Linear, Classic
     }
     internal var dealingType: Dealing = .Classic
-
+    
+    public weak var bank: Bank?
     public weak var delegate: GameDelegate? = nil
+    
     public var model: GameModel = GameModel()
     public var state: BJTableState = .Betting
     
@@ -79,6 +78,11 @@ public class Game: BJGame {
                 if hand.playing {
                     self.payoutHandFinal(&hand)
                 }
+            }
+        }
+        self.model.hands.forEach { (hand) in
+            if let winning = hand?.totalWin {
+                self.bank?.put(amount: winning)
             }
         }
         self.delegate?.roundEnded()
@@ -197,6 +201,9 @@ public class Game: BJGame {
         return try self.bet(handId: String(index), stake: stake)
     }
     public func bet(handId: String, stake: Double) throws -> Void {
+        
+        try self.bank?.take(amount: stake)
+        
         var hand: BJUserHand? = self.model.getHand(id: handId)
         if hand == nil {
             hand = self.model.createHand(id: handId)

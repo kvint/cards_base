@@ -14,6 +14,9 @@ public enum BJError: Error {
 public protocol UserModel {
     var balance: Double {get}
 }
+public enum BJTableState {
+    case Betting, Idle, Revealing, Payout
+}
 public protocol BJGame {
     var delegate: GameDelegate? {get set}
 
@@ -76,6 +79,11 @@ public protocol BJDealerHand: BJHand {
     var facedCard: Card? {get}
 }
 
+public protocol Bank: class {
+    var total: Double {get}
+    func take(amount: Double) throws
+    func put(amount: Double)
+}
 public protocol GameDelegate: class {
     
     func revealDealerCard(_ card: Card)
