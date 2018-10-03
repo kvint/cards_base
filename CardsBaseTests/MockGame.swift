@@ -22,3 +22,19 @@ class MockGame: Game {
         (model as! MockGameModel).mockDeck = deck.reversed()
     }
 }
+class MockBank: Bank {
+    
+    private var currentAmount: Double = 0
+    
+    func take(amount: Double) throws {
+        currentAmount -= amount
+    }
+    func put(amount: Double) {
+        currentAmount += amount
+    }
+    var total: Double {
+        get {
+            return self.currentAmount
+        }
+    }
+}

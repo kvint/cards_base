@@ -11,10 +11,13 @@ import XCTest
 class TBJGameCase: XCTestCase {
 
     let game = MockGame()
+    let bank = MockBank()
     private var cards: [Card] = []
 
     func fillDeck(_ cards: [Card]) {
         self.cards = cards;
         self.game.setUp(deck: cards)
+        self.game.bank = bank
+        
     }
 }

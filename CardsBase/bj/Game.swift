@@ -174,9 +174,6 @@ public class Game: BJGame {
             }
             hand.isDone = true
         }
-        if hand.isDone {
-            self.delegate?.onDone(hand: &hand)
-        }
     }
     public func payoutHandFinal(_ hand: inout BJUserHand) -> Void {
         let handScore = hand.getFinalScore()
@@ -255,8 +252,6 @@ public class Game: BJGame {
                         }
                         var t_bjHand = hand as BJUserHand
                         self.payoutHand(&t_bjHand)
-                        var h = hand as BJHand
-                        self.delegate?.updated(hand: &h)
                     }
                 }
             }
@@ -264,17 +259,11 @@ public class Game: BJGame {
         case .Classic:
             for i in 1...2 {
                 try self.dealCardTo(hand: &dealer, hidden: i == 1) // TODO: rethrow
-                if i == 2 {
-                    self.delegate?.updated(hand: &dealer)
-                }
+
                 try self.model.hands.forEach {
                     if var hand = $0 {
                         if hand.playing {
                             try self.dealCardToUser(hand: &hand)
-                            if i == 2 {
-                                var bjHand = hand as BJHand
-                                self.delegate?.updated(hand: &bjHand)
-                            }
                         }
                     }
                 }
@@ -293,8 +282,6 @@ public class Game: BJGame {
         try self.dealCardToUser(hand: &hand)
         hand.isDone = true
 
-        var bjHand = hand as BJHand
-        self.delegate?.updated(hand: &bjHand)
         var bjUserHand = hand as BJUserHand
         self.delegate?.onBet(onHand: &bjUserHand, regularBet: false)
         
@@ -339,9 +326,6 @@ public class Game: BJGame {
         }
 
         try self.dealCardToUser(hand: &hand)
-
-        var bjHand = hand as BJHand
-        self.delegate?.updated(hand: &bjHand)
     }
 
     public func stand() throws {

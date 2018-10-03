@@ -10,6 +10,7 @@ import Foundation
 
 class UserHand: Hand, BJUserHand {
     
+    private var lastStake: Double = 0
     var isDone: Bool = false
     var stake: Double = 0
     var win: Double = 0
@@ -74,7 +75,8 @@ class UserHand: Hand, BJUserHand {
     }
     override func clear() {
         super.clear()
-        self.stake = 0
-        self.playing = false
+        lastStake = stake
+        stake = 0
+        playing = false
     }
 }
