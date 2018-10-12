@@ -14,10 +14,7 @@ class Dealer: Hand, BJDealerHand {
     }
     var facedCard: Card? {
         get {
-            if self.cards.count >= 2 {
-                return cards[1]
-            }
-            return nil
+            return self.cards.first
         }
     }
 }

@@ -52,6 +52,8 @@ public protocol BJHand {
     var id: String {get}
     var cards: [Card] {get set}
     var payedOut: Bool {get set}
+    var isDone: Bool {get set}
+    
     func getScore() -> (hard: Int, soft: Int?)
     func gotBusted() -> Bool
     func gotBlackjack() -> Bool
@@ -66,7 +68,6 @@ public protocol BJUserHand: BJHand {
     var doubleBet: Double {get set}
     var doubleWin: Double {get set}
     var playing: Bool {get set}
-    var isDone: Bool {get set}
     var totalBet: Double {get}
     var totalWin: Double {get}
 

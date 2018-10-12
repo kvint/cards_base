@@ -2,6 +2,7 @@ import Foundation
 
 class Hand: BJHand, Hashable {
     
+    var isDone: Bool = false
     var payedOut: Bool = false
     
     var cards: [Card] = []

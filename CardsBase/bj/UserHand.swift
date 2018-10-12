@@ -11,7 +11,7 @@ import Foundation
 class UserHand: Hand, BJUserHand {
     
     private var lastStake: Double = 0
-    var isDone: Bool = false
+    
     var stake: Double = 0
     var win: Double = 0
     var doubleBet: Double = 0
