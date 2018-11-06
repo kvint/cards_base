@@ -279,11 +279,11 @@ public class Game: BJGame {
         let curStake = hand.stake
         hand.doubleBet = curStake
         hand.stake = curStake * 2
-        try self.dealCardToUser(hand: &hand)
-        hand.isDone = true
-
         var bjUserHand = hand as BJUserHand
         self.delegate?.onBet(onHand: &bjUserHand, regularBet: false)
+        
+        try self.dealCardToUser(hand: &hand)
+        hand.isDone = true
         
         self.nextStep()
     }
